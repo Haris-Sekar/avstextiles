@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.sidebar {
+    flex-basis: 20rem;
+    flex-grow: 1;
+}
+
+.sidebar .sidebarContent {
+    display: flex;
+    border: 2px solid var(--background);
+    border-left: 0px; 
+    margin: 5% 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.sidebar .sidebarContent .sidebarItems {
+    width: 100%;
+    padding: 5%;
+}
+
+.sidebar .sidebarContent .sidebarItems ul {
+    all: unset;
+    margin: 3% 5%;
+    display: flex;
+    list-style-type: none;
+    flex-direction: column;
+}
+
+.sidebar .sidebarContent li{
+    margin: 4% 0;
+}
+
+.sidebar .sidebarContent .sidebarItems .sidebarItem {
+    text-decoration: none;
+    color: var(--black);
+    border: 2px solid transparent;
+    transition: 0.3s ease-in-out;
+    padding: 2% 5%;
+    cursor: pointer;
+
+}
+
+.sidebar .sidebarContent .sidebarItems .sidebarItem:hover {
+    color: var(--background);
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    border-radius: 0 20px;
+}
+
+.sidebar .sidebarContent .sidebarItems .active {
+    color: var(--background);
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    border-radius: 0 20px;
+}
+
+.content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
+}

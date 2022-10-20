@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+/* variable declartion */
+
+:root {
+    --background: #ED6B5B;
+    --white: #ffffff;
+    --primay: #F9AC66;
+    --secondary: #C36B84;
+    --black: #000000;
+    --light: #ffeded;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar .navbarContent .logo {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .navbarContent .logo img {
+    width: 100px;
+    height: 100px;
+}
+
+.navbar .navbarContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .navbarContent .navbarItems {
+    width: 60%;
+}
+
+.navbar .navbarContent .navbarItems ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.navbar .navbarContent .navbarItems li {
+    margin: 0 3%;
+}
+
+.navbar .navbarContent .navbarItems .navbarItem {
+    text-decoration: none;
+    color: var(--black);
+    border: 2px solid transparent;
+    transition: 0.3s ease-in-out;
+    padding: 5% 13%;
+
+}
+
+.navbar .navbarContent .navbarItems .navbarItem:hover {
+    color: var(--background);
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    border-radius: 20px;
+}
+
+.navbar .navbarContent .navbarBtnContainer {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .navbarContent .navbarItems .active {
+    color: var(--background);
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    border-radius: 20px;
+}

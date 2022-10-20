@@ -1,0 +1,41 @@
+button{
+    font-family: 'Montserrat', sans-serif;
+}
+.btn-one{
+    border:2px solid;
+    padding: 10px 20px; 
+    font-size: 15px;
+    background-color: var(--background);
+    color: var(--white);
+    border-radius: 15px;
+    cursor: pointer;
+    border-color: var(--background);
+    transition: 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.btn-one:hover{ 
+    background-color: var(--white);
+    color: var(--background);
+    box-shadow: unset;
+}
+
+.btn-banner{
+    margin: 2%;
+    border:2px solid;
+    padding: 1% 2%; 
+    font-size: 15px;
+    background-color: var(--background);
+    color: var(--white);
+    border-radius: 15px;
+    cursor: pointer;
+    border-color: var(--background);
+    transition: 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-weight: 900;
+}
+
+.btn-banner:hover{
+    background-color: var(--white);
+    color: var(--background);
+    box-shadow: unset;
+}
