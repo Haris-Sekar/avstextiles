@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-import Navbar from "../Navbar/Navbar";
 import { login } from '../../action';
 import Button from '../Button/Button';
+import Toast from '../Toast/Toast';
 const Auth = () => {
   const navigate = useNavigate();
 

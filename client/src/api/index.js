@@ -9,9 +9,7 @@ baseUrl.interceptors.request.use((req) => {
     }
     return req;
   });
-
-
-export const fetch = () => baseUrl.get("/testget");
-export const postMethod = () => baseUrl.post("/test");
-
+  
 export const login = (formData) => baseUrl.post("/auth/login",formData);
+export const getAllCustomer = () => baseUrl.get('/customer');
+export const addCustomer = (formData) => baseUrl.post('/customer/add',formData);

@@ -5,11 +5,10 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
- 
 
 import auth from "./routes/auth.js";
-
-
+import home from "./routes/home.js";
+import customer from "./routes/customer.js";
 const app = express();
 
 
@@ -22,8 +21,8 @@ dotenv.config();
 
 
 app.use("/auth",auth); 
-
-
+app.use("/",home)
+app.use('/customer',customer);
 const port = process.env.PORT;
 mongoose
   .connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true })

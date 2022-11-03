@@ -1,3 +1,4 @@
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -13,7 +14,6 @@
     display: flex;
     border: 2px solid var(--background);
     border-left: 0px; 
-    margin: 5% 0;
     border-radius: 0 10px 10px 0;
 }
 

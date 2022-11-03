@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from "../Button/Button";
 import { Link, useLocation } from "react-router-dom";
 import { LOGOUT } from '../../constants/actionTypes';
@@ -13,16 +13,17 @@ const Navbar = () => {
 	const [isLogged, setIsLogged] = useState(localStorage.getItem('token') ? true : false);
 	useEffect(() => {
 		if (!localStorage.getItem("token")) {
-		  navigate("/auth");
+			navigate("/auth");
 		}
-		else{
+		else {
 			setIsLogged(true);
 		}
-	  }, [navigate]);
+	}, [navigate]);
 	const userLogout = () => {
 		dispatch({ type: LOGOUT })
+		setIsLogged(false)
 		navigate("/auth");
-	}
+	} 
 	return (
 		<>
 			<div className="navbar">
@@ -31,12 +32,19 @@ const Navbar = () => {
 					<div className="navbarItems">
 						<ul>
 							<li><Link className={location.pathname === "/" ? 'navbarItem active' : "navbarItem"} id='dashboard' to="/">Dashboard</Link></li>
-							<li><Link className={location.pathname === "/customers/Dashboard" ? 'navbarItem active' : "navbarItem"} id='customers' to="/customers/Dashboard">Customers</Link></li>
-							<li><Link className={location.pathname === "/products" ? 'navbarItem active' : "navbarItem"} id='products' to="/products">Products</Link></li>
-							<li><Link className={location.pathname === "/Invoice" ? 'navbarItem active' : "navbarItem"} id='Invoice' to="/Invoice">Invoice</Link></li>
-							<li><Link className={location.pathname === "/reports" ? 'navbarItem active' : "navbarItem"} id='reports' to="/reports">Reports</Link></li>
+							<li><Link className={location.pathname.includes('customers')? 'navbarItem active' : "navbarItem"} id='customers' to="/customers/Dashboard">Customers</Link></li>
+							<li><Link className={location.pathname.includes('products') ? 'navbarItem active' : "navbarItem"} id='products' to="/products">Products</Link></li>
+							<li><Link className={location.pathname.includes('invoice') ? 'navbarItem active' : "navbarItem"} id='Invoice' to="/invoice">Invoice</Link></li>
+							<li><Link className={location.pathname.includes('reports') ? 'navbarItem active' : "navbarItem"} id='reports' to="/reports">Reports</Link></li>
 						</ul>
 					</div>
+					{/* <div className='profile'>
+						<div className="user" onClick={dropdownHandler}><img src={require("../../assets/images/user.png")} alt="logo" /></div>
+						<ul className='dropdown' style={{display : ((!showDropdown) ? 'none' : '')}}>
+							<li>Profile</li>
+							<li>Logout</li>
+						</ul>
+					</div> */}
 					{!isLogged ? (<div className="navbarBtnContainer">
 						<Button onclick="/auth" title="Login" className="btn-one" />
 					</div>) : <div className="navbarBtnContainer"><button type='button' onClick={userLogout} className='btn-one'>Logout</button></div>}

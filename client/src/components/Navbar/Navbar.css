@@ -21,6 +21,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.navbar .navbarContent{
+    margin: 0 0 2% 0;
+}
+
 .navbar .navbarContent .logo {
     width: 20%;
     display: flex;
@@ -33,6 +37,18 @@ body {
     height: 100px;
 }
 
+.navbar .navbarContent .user {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar .navbarContent .user img {
+    width: 65px;
+    height: 65px;
+}
 .navbar .navbarContent {
     display: flex;
     justify-content: space-between;
@@ -68,12 +84,14 @@ body {
     border: 2px solid var(--light);
     border-radius: 20px;
 }
-
 .navbar .navbarContent .navbarBtnContainer {
     width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.navbar .navbarContent .profile {
+    width: 10%;
 }
 
 .navbar .navbarContent .navbarItems .active {
@@ -81,4 +99,15 @@ body {
     background-color: var(--light);
     border: 2px solid var(--light);
     border-radius: 20px;
+}
+
+.navbar .navbarContent .dropdown{
+    position: absolute;
+    border: 2px solid black;
+    padding: 1%;
+    
+}
+.navbar .navbarContent .dropdown li{
+    list-style-type: none;
+    margin: 30% 0;
 }
