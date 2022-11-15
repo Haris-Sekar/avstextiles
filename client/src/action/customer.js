@@ -24,7 +24,6 @@ const Toast = (type,message) =>
 export const addCustomer = (formData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.addCustomer(formData);
-    console.log("dfata", data);
     if (data.code === 200) {
       dispatch({ type: CREATE, data });
       Toast('success',data.message)

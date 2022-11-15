@@ -67,7 +67,7 @@ const Manage = () => {
                   <TableCell align="left">Email</TableCell>
                   <TableCell align="left">Phone</TableCell>
                   <TableCell align="left">Main Area</TableCell>
-                  <TableCell aling="left">Balance</TableCell>
+                  <TableCell align="left">Balance</TableCell>
                 </TableRow>
               </TableHead>
               {customers.length > 0 ? (

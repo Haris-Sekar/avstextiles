@@ -25,7 +25,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { stateAndCity } from "../../../constants/StateAndCity";
-import { formatMoney } from "../../../constants/commonfunction";
 const Add = (props) => {
   const mainAreaList = [
     "Ammapet",
