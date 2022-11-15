@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer().array())
+app.use(multer().array());
 dotenv.config();
 
 

@@ -6,8 +6,7 @@ const Sidebar = (props) => {
      const location = useLocation(); 
     function sideBarLink(ele) {
         ele = ele.replace(/\s+/, "") 
-        console.log(ele);
-        if(location.pathname.endsWith(ele)){
+         if(location.pathname.endsWith(ele)){
             return "#"
         }
         else {

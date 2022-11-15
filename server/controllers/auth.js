@@ -147,8 +147,10 @@ export const signup = async (req, res) => {
 
 export const accountVerify = async (req, res) => {
     try {
-        const tokenData = jwt.decode(req.body.token);
+        const tokenData =await jwt.decode(req.body.token);
+        console.log(tokenData);
         const result = await userModel.findOne({ email: tokenData.email });
+        console.log(result);
         if (result.isVerified) {
             const response = {
                 message: "user already verified",
@@ -158,7 +160,7 @@ export const accountVerify = async (req, res) => {
             return;
         }
         if (tokenData.dateCreated <= Date.now()) {
-            const result = await userModel.updateOne({ email: tokenData.email, isVerified: true });
+            const result = await userModel.updateOne({ email: tokenData.email},{isVerified: true });
             console.log(result);
             const response = {
                 message: "user verified",

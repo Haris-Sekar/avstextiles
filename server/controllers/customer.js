@@ -1,15 +1,18 @@
 import customerModel from "../models/customer.js";
+import mainAreaModel from "../models/mainArea.js";
 import _ from "lodash";
 export const add = async (req, res) => {
   try {
     const newCustomer = new customerModel(
       _.pick(req.body, [
+        "companyName",
         "name",
         "email",
         "phone",
-        "address",
+        "address1","address2","city","state","pincode",
         "gstNum",
         "mainArea",
+        "balance"
       ])
     );
     const lastId = await customerModel.find();
@@ -78,6 +81,105 @@ export const getAll = async (req, res) => {
   } catch (error) {
     const response = {
       message: error.message,
+      code: 500,
+    };
+    res.send(response);
+    return;
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    console.log("body", req.body);
+    const update = await customerModel.findOneAndUpdate(
+      { _id: req.body._id },
+      req.body
+    );
+    const customer = await customerModel.find();
+    console.log(customer);
+    res.send({
+      code: 200,
+      result: customer,
+      message: "Updated Successfully",
+    });
+  } catch (error) {
+    const response = {
+      message: error.message,
+      code: 500,
+    };
+    res.send(response);
+    return;
+  }
+};
+
+export const deleteCustomer = async (req, res) => {
+  try {
+    console.log(req.params);
+    await customerModel.findByIdAndRemove(req.params.id);
+    const response = {
+      message: "Customer Deleted Successfully",
+      code: 200,
+    };
+    res.send(response);
+    return;
+  } catch (error) {
+    const response = {
+      message: "Something went wrong",
+      code: 500,
+    };
+    res.send(response);
+    return;
+  }
+};
+
+export const addMainArea = async (req, res) => {
+  try {
+    const newMainArea = new mainAreaModel(_.pick(req.body, ["name"]));
+    const duplicateValidation = await mainAreaModel.findOne({
+      name: req.body.name,
+    });
+    if (duplicateValidation) {
+      const response = {
+        code: 500,
+        message: "This area is already added.",
+      };
+      res.send(response);
+      return;
+    } else {
+      const result = await newMainArea.save();
+      const all = await mainAreaModel.find();
+      const response = {
+        code: 200,
+        message: "Area has been added successfully",
+        result: all,
+      };
+      res.send(response);
+    }
+  } catch (error) {
+    console.log(error);
+    const response = {
+      message: "Something went wrong",
+      code: 500,
+    };
+    res.send(response);
+    return;
+  }
+};
+
+export const getAllMainArea = async (req, res) => {
+  try {
+    const result = await mainAreaModel.find();
+    const response = {
+      code: 200,
+      message: "fetched successfully",
+      result: result,
+    };
+    res.send(response);
+    return;
+  } catch (error) {
+    console.log(error);
+    const response = {
+      message: "Something went wrong",
       code: 500,
     };
     res.send(response);

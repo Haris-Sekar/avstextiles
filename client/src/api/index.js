@@ -13,3 +13,5 @@ baseUrl.interceptors.request.use((req) => {
 export const login = (formData) => baseUrl.post("/auth/login",formData);
 export const getAllCustomer = () => baseUrl.get('/customer');
 export const addCustomer = (formData) => baseUrl.post('/customer/add',formData);
+export const updateCustomer = (formData) => baseUrl.put('/customer/update',formData);
+export const deleteCustomer = (id) => baseUrl.delete(`/customer/delete/${id}`);

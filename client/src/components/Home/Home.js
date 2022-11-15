@@ -1,13 +1,11 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import Navbar from '../Navbar/Navbar'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Customers from '../Customers/Customers';
 import Auth from '../Auth/Auth';
 import Products from "../Products/Products";
 import Invoice from "../Invoice/Invoice";
-import Reports from "../Reports/Reports";
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllCustomer } from '../../action/index';
+import Reports from "../Reports/Reports"; 
 
 const Home = () => { 
   return (

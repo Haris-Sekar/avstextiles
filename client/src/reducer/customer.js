@@ -10,6 +10,8 @@ const customerReducer = (state = {customerData : null,customers : [],isLoading: 
             return {...state,customerData : action.data}
         case actionType.FETCH_ALL:
              return{...state,customers : action.data}
+        case actionType.UPDATE:
+            return{...state,customers : action.data}
         default:
             return state;
     }

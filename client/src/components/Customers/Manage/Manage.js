@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCustomer } from "../../../action/index";
-import Backdrop from '@mui/material/Backdrop';
+import { getAllCustomer } from "../../../action/customer";
+import Backdrop from "@mui/material/Backdrop";
 import "./Manage.css";
 import Add from "../Add/Add";
 import {
-  Button,
   Paper,
   TableCell,
   TableContainer,
@@ -16,9 +15,14 @@ import {
   Skeleton,
   Modal,
   Box,
+  Button,
+  Typography,
 } from "@mui/material";
-
+import { formatMoney } from "../../../constants/commonfunction";
+import { useNavigate } from "react-router-dom";
+ 
 const Manage = () => {
+  const navigate = useNavigate();
   const style = {
     position: "absolute",
     top: "50%",
@@ -28,26 +32,26 @@ const Manage = () => {
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
-    borderRadius: '20px'
+    borderRadius: "20px",
   };
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [selectedRow, setSelectedRow] = useState();
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   useEffect(() => {
     dispatch(getAllCustomer());
   }, [dispatch]);
   const { customers, isLoading } = useSelector(
     (state) => state.customerReducer
-  ); 
+  );
   const showProfile = (details) => {
     setOpen(true);
     setSelectedRow(details);
+    console.log(details);
   };
 
   if (!isLoading) {
-    return (
+     return (
       <>
         <div className="customerTableContainer">
           <TableContainer
@@ -63,29 +67,48 @@ const Manage = () => {
                   <TableCell align="left">Email</TableCell>
                   <TableCell align="left">Phone</TableCell>
                   <TableCell align="left">Main Area</TableCell>
+                  <TableCell aling="left">Balance</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {customers.map((row) => (
-                  <TableRow
-                    onClick={() => showProfile(row)}
-                    style={{ cursor: "pointer", transition: ".2s ease-in-out" }}
-                    key={row.cusId}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                      "&:hover": { background: "#edf2f4" },
-                    }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.cusId}
+              {customers.length > 0 ? (
+                <TableBody>
+                  {customers.map((row) => (
+                    <TableRow
+                      onClick={() => showProfile(row)}
+                      style={{
+                        cursor: "pointer",
+                        transition: ".2s ease-in-out",
+                      }}
+                      key={row.cusId}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        "&:hover": { background: "#edf2f4" },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.cusId}
+                      </TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="left">{row.phone}</TableCell>
+                      <TableCell align="left">{row.mainArea}</TableCell>
+                      <TableCell align="left">{formatMoney(row.balance)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              ) : (
+                <TableBody> 
+                  <TableRow>
+                    <TableCell colSpan={5} sx={{ textAlign: "center" }}>
+                      <Typography></Typography>No Customers found
+                      <br /> 
+                      <Button sx={{ m: 3 }} variant="outlined" onClick={() => navigate('/customers/AddCustomer')}>
+                        Add some
+                      </Button>
                     </TableCell>
-                    <TableCell align="left">{row.name}</TableCell>
-                    <TableCell align="left">{row.email}</TableCell>
-                    <TableCell align="left">{row.phone}</TableCell>
-                    <TableCell align="left">{row.mainArea}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
+                </TableBody>
+              )}
             </Table>
           </TableContainer>
         </div>
@@ -99,9 +122,10 @@ const Manage = () => {
           BackdropProps={{
             timeout: 500,
           }}
+          sx={{borderColor:"white"}}
         >
           <Box sx={style}>
-            <Add details={selectedRow} />
+            <Add closeModal={handleClose} details={selectedRow} />
           </Box>
         </Modal>
       </>
@@ -122,6 +146,7 @@ const Manage = () => {
                 <TableCell align="left">Email</TableCell>
                 <TableCell align="left">Phone</TableCell>
                 <TableCell align="left">Main Area</TableCell>
+                <TableCell align="left">Balance</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

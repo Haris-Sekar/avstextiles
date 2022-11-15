@@ -1,38 +1,52 @@
 import mongoose from "mongoose";
-
 const customerSchema = new mongoose.Schema({
-    cusId:{
-        type:String,
-        required:true,
-    },
-    name: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-    },
-    phone: {
-        type: Number,
-        required: true,
-    },
-    address: {
-        type: String,
-        required: true
-    },
-    gstNum: {
-        type: String,
-    },
-    mainArea: {
-        type: String
-    },
-    createdTime:{
-        type:Date,
-        required: true,
-        default: Date.now(),
-    }
-});
+  cusId: {
+    type: String,
+    required: true,
+  },
+  companyName: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  address1: {
+    type: String,
+    required: true,
+  },
+  address2: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  city: { type: String },
+  pincode: { type: String },
+  gstNum: {
+    type: String,
+  },
+  mainArea: {
+    type: String,
+    ref: "mainArea",
+  },
+  balance: {
+    type: Number,
+  },
 
+  createdTime: {
+    type: Date,
+    required: true,
+    default: Date.now(),
+  },
+});
 
 const customerModel = mongoose.model("customer", customerSchema);
 
