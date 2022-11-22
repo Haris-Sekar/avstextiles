@@ -9,6 +9,10 @@ import multer from "multer";
 import auth from "./routes/auth.js";
 import home from "./routes/home.js";
 import customer from "./routes/customer.js";
+
+import { permissionTypes,defaultPermissions } from "./consts/permission.js";
+
+console.log(defaultPermissions);
 const app = express();
 
 

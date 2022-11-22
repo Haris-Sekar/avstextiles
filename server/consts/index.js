@@ -1,9 +1,3 @@
-export const USERTYPE = {
-    1:'user',
-    2:'admin',
-    3:'staff',
-}
-
 export const verificationTemplate = (props)=>{
     return `<html>
     <head>
