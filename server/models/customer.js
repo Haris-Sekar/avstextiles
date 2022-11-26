@@ -40,7 +40,10 @@ const customerSchema = new mongoose.Schema({
   balance: {
     type: Number,
   },
-
+  permissions: {
+    type: Object,
+    required: true,
+  },
   createdTime: {
     type: Date,
     required: true,

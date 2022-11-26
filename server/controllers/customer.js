@@ -1,6 +1,7 @@
 import customerModel from "../models/customer.js";
 import mainAreaModel from "../models/mainArea.js";
 import _ from "lodash";
+import { defaultPermissions } from "../consts/permission.js";
 export const add = async (req, res) => {
   try {
     const newCustomer = new customerModel(
@@ -23,7 +24,9 @@ export const add = async (req, res) => {
     }
     cusId = cusId.split(/([0-9]+)/);
     var cusId1 = parseInt(cusId[1]) + 1;
+    const permissions = defaultPermissions['2'];
     newCustomer.cusId = "AVSC" + cusId1;
+    newCustomer.permissions = permissions;
     const validateExistingCustomerEmail = await customerModel.findOne({
       email: req.body.email,
     });
@@ -53,6 +56,7 @@ export const add = async (req, res) => {
       return;
     } else {
       const result = await newCustomer.save();
+      console.log(result);
       const response = {
         message: "User added successfully",
         result: result,

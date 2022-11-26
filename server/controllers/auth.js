@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/auth.js";
 import { accountVerification } from "./mail.js";
-
+import {defaultPermissions} from "../consts/permission.js"
 
 
 export const login = async (req, res) => {
@@ -67,12 +67,14 @@ export const login = async (req, res) => {
 
 export const signup = async (req, res) => {
     const { name, email, password, mobile, confirmPassword, userType } = req.body;
+    const permission = defaultPermissions['0'];
     const newUser = new userModel({
         name,
         email,
         password,
         mobile,
         userType,
+        permission:permission,
         isVerified: false,
     });
 

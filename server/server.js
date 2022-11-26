@@ -9,11 +9,9 @@ import multer from "multer";
 import auth from "./routes/auth.js";
 import home from "./routes/home.js";
 import customer from "./routes/customer.js";
+import permission from "./routes/permission.js";
 
-import { permissionTypes,defaultPermissions } from "./consts/permission.js";
-
-console.log(defaultPermissions);
-const app = express();
+ const app = express();
 
 
 app.use(express.json());
@@ -27,6 +25,8 @@ dotenv.config();
 app.use("/auth",auth); 
 app.use("/",home)
 app.use('/customer',customer);
+app.use("/permission",permission);
+
 const port = process.env.PORT;
 mongoose
   .connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true })
