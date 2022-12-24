@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   TextField,
   Autocomplete,
@@ -14,25 +14,37 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Add.css";
 import Toast from "../../Toast/Toast";
 import {
   addCustomer,
   updateCustomer,
   deleteCustomer,
+  getAllMainArea,
 } from "../../../action/customer";
 import { useNavigate } from "react-router-dom";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { stateAndCity } from "../../../constants/StateAndCity";
 const Add = (props) => {
-  const mainAreaList = [
-    "Ammapet",
-    "aiasf",
-    "Gorimedu",
-    "Yercaurd",
-    "Kadiayampatti",
-  ];
+  // useEffect(() => {
+  //   dispatch(getAllMainArea());
+  // }, []);
+  const mainAreas = [{
+    _id:"asdf",
+    name: "Asdf",
+  },{
+    _id: "siubdv",
+    name:"asdfes"
+  },
+  { 
+    _id:"ASdf",
+    name: "Ponnamapet"
+  }
+];
+  const { isLoading } = useSelector(
+    (state) => state.customerReducer
+  );
   const state = Object.keys(stateAndCity);
   var initialState = {
     companyName: "",
@@ -59,7 +71,7 @@ const Add = (props) => {
   const [customer, setCustomer] = useState(initialState);
 
   const [city, setCity] = useState(customer.state.length > 0 ? stateAndCity[customer.state] : []);
-
+  var mainAreaList = [];
   const handleForm = (event, mainArea) => {
     if (event.target.name === "state") {
       setCity(stateAndCity[event.target.value]);
@@ -82,6 +94,19 @@ const Add = (props) => {
   };
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  console.log("hello");
+  
+  
+  if(isLoading){
+    mainAreaList = ["Please Wait"]
+  }
+  else {
+    mainAreas.forEach(element => {
+      mainAreaList.push(element.name)
+    });
+  }
+  
   const validation = (fieldValues = customer) => {
     let temp = { ...errors };
     const emailRegex = new RegExp(

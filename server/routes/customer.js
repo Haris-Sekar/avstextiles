@@ -8,18 +8,21 @@ import {
   update,
 } from "../controllers/customer.js";
 
+import { auth } from "../services/middleware/auth.js";
+import { permission } from "../services/middleware/permission.js";
+
 const router = express.Router();
 
-router.post("/add", add);
+router.post("/add", auth, permission, add);
 
-router.get("/", getAll);
+router.get("/", auth, permission, getAll);
 
-router.put("/update", update);
+router.put("/update", auth, permission, update);
 
-router.delete("/delete/:id", deleteCustomer);
+router.delete("/delete/:id", auth, permission, deleteCustomer);
 
-router.get("/mainArea", getAllMainArea);
+router.get("/mainArea", auth, permission, getAllMainArea);
 
-router.post("/addMainArea", addMainArea);
+router.post("/addMainArea", auth, permission, addMainArea);
 
 export default router;

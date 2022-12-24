@@ -5,8 +5,12 @@ const mainAreaSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userId : {
+        type: String, 
+        ref: 'user'
+    },
     createdTime:{
-        type:Date,
+        type:String,
         required: true,
         default: Date.now(),
     }

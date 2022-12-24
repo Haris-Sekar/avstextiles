@@ -2,12 +2,12 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/auth.js";
 import { accountVerification } from "./mail.js";
-import {defaultPermissions} from "../consts/permission.js"
+import {defaultPermissions,USERTYPE} from "../consts/permission.js"
 
 
 export const login = async (req, res) => {
     const { email } = req.body;
-    console.log(req.body);
+    (req.body);
     try {
         const result = await userModel.findOne({ email: email });
         if (!result) {
@@ -21,7 +21,7 @@ export const login = async (req, res) => {
 
         else {
             const resultOfSalt = await bcrypt.compare(req.body.password, result.password);
-            console.log(resultOfSalt);
+            (resultOfSalt);
             if (!resultOfSalt) {
                 const response = {
                     message: "Invalid Credentials",
@@ -67,13 +67,13 @@ export const login = async (req, res) => {
 
 export const signup = async (req, res) => {
     const { name, email, password, mobile, confirmPassword, userType } = req.body;
-    const permission = defaultPermissions['0'];
+    const permission = defaultPermissions[userType];
     const newUser = new userModel({
         name,
         email,
         password,
         mobile,
-        userType,
+        userType: USERTYPE[userType],
         permission:permission,
         isVerified: false,
     });
@@ -87,7 +87,7 @@ export const signup = async (req, res) => {
     } else {
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        console.log(req.body.email);
+        (req.body.email);
         const alreadyAUserWithEmail = await userModel.findOne({ email: req.body.email });
         const alreadyAUserWithPhone = await userModel.findOne({ mobile: req.body.mobile });
         if (alreadyAUserWithEmail && alreadyAUserWithPhone) {
@@ -150,9 +150,9 @@ export const signup = async (req, res) => {
 export const accountVerify = async (req, res) => {
     try {
         const tokenData =await jwt.decode(req.body.token);
-        console.log(tokenData);
+        (tokenData);
         const result = await userModel.findOne({ email: tokenData.email });
-        console.log(result);
+        (result);
         if (result.isVerified) {
             const response = {
                 message: "user already verified",
@@ -163,7 +163,7 @@ export const accountVerify = async (req, res) => {
         }
         if (tokenData.dateCreated <= Date.now()) {
             const result = await userModel.updateOne({ email: tokenData.email},{isVerified: true });
-            console.log(result);
+            (result);
             const response = {
                 message: "user verified",
                 code: 200
@@ -196,7 +196,7 @@ export const accountSendMail = async (req, res) => {
         }
         else {
             const sendMail = accountVerification(result.email);
-            console.log(sendMail);
+            (sendMail);
             const response = {
                 message: "Mail sent",
                 status: "200"

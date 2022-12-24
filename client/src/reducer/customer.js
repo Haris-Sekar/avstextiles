@@ -1,6 +1,6 @@
 import * as actionType from '../constants/actionTypes';
 
-const customerReducer = (state = {customerData : null,customers : [],isLoading: true},action) =>{
+const customerReducer = (state = {customerData : null,customers : [],isLoading: true,mainAreas: []},action) =>{
     switch (action.type) {
         case actionType.START_LOADING: 
             return {...state,isLoading: true};
@@ -12,6 +12,10 @@ const customerReducer = (state = {customerData : null,customers : [],isLoading: 
              return{...state,customers : action.data}
         case actionType.UPDATE:
             return{...state,customers : action.data}
+        case actionType.CREATE_MAIN_AREA:
+            return{...state,mainAreas : action.data}
+        case actionType.FETCH_ALL_MAIN_AREA:
+            return {...state,mainAreas: action.data}
         default:
             return state;
     }

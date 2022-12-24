@@ -1,17 +1,36 @@
 import jwt from "jsonwebtoken";
-
-module.exports = function (req, res, next) {
-    const token = req.cookies.jwt_token;
-    if (!token) { 
-        next();
+import userModel from "../../models/auth.js";
+export const auth = async function (req, res, next) {
+  var token;
+  if (!req.headers.authorization) {
+    res.status(401).json({
+      code: 401,
+      message: "Unauthorized access",
+    });
+  } else {
+    token = req.headers.authorization.split(" ")[1];
+    try {
+      const decoded = jwt.verify(token, process.env.PRIVATEKEY);
+      const fromDb = await userModel.findById(decoded.id);
+      console.log(fromDb);
+      if (fromDb.email === decoded.email) {
+        console.log(decoded.id);
+        req.id = decoded.id;
+        req.email = decoded.email;
+        req.permission = fromDb.permission;
+        req.userType = fromDb.userType;
+      } else {
+        res.status(401).json({
+          code: 401,
+          message: "Unauthorized access",
+        });
+      }
+      next();
+    } catch (error) {
+      res.status(401).json({
+        code: 401,
+        message: "Unauthorized access",
+      });
     }
-    else {
-        try {
-            const decoded = jwt.verify(token, process.env.PRIVATEKEY);
-            req.user = decoded;
-            next();
-        } catch (error) {
-            res.status(400).send('Invalid token')
-        }
-    }
-}
+  }
+};

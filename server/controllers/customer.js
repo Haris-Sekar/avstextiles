@@ -3,6 +3,7 @@ import mainAreaModel from "../models/mainArea.js";
 import _ from "lodash";
 import { defaultPermissions } from "../consts/permission.js";
 export const add = async (req, res) => {
+  console.log(req.id);
   try {
     const newCustomer = new customerModel(
       _.pick(req.body, [
@@ -10,23 +11,29 @@ export const add = async (req, res) => {
         "name",
         "email",
         "phone",
-        "address1","address2","city","state","pincode",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "pincode",
         "gstNum",
         "mainArea",
-        "balance"
+        "balance",
       ])
     );
-    const lastId = await customerModel.find();
-    let cusId = "AVSC0";
+    const lastId = await customerModel.find().sort({ _id: -1 }).limit(1);
+    let cusId = process.env.SHORTNAME + "C0";
     if (lastId.length > 0) {
       cusId = lastId[lastId.length - 1].cusId;
       console.log(cusId);
     }
     cusId = cusId.split(/([0-9]+)/);
     var cusId1 = parseInt(cusId[1]) + 1;
-    const permissions = defaultPermissions['2'];
-    newCustomer.cusId = "AVSC" + cusId1;
+    const permissions = defaultPermissions["2"];
+    newCustomer.cusId = process.env.SHORTNAME + "C" + cusId1;
     newCustomer.permissions = permissions;
+    newCustomer.userId = req.id;
+    if(newCustomer.balance===null) newCustomer.balance = 0
     const validateExistingCustomerEmail = await customerModel.findOne({
       email: req.body.email,
     });
@@ -58,11 +65,11 @@ export const add = async (req, res) => {
       const result = await newCustomer.save();
       console.log(result);
       const response = {
-        message: "User added successfully",
+        message: "Customer added successfully",
         result: result,
         code: 200,
       };
-      res.send(response);
+      res.status(200).json(response);
       return;
     }
   } catch (error) {
@@ -77,7 +84,8 @@ export const add = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const data = await customerModel.find();
+    const data = await customerModel.find({userId:req.id});
+    console.log(data);
     res.send({
       result: data,
       code: "200",
@@ -96,7 +104,7 @@ export const update = async (req, res) => {
   try {
     console.log("body", req.body);
     const update = await customerModel.findOneAndUpdate(
-      { _id: req.body._id },
+      { _id: req.body._id,cusId: req.id },
       req.body
     );
     const customer = await customerModel.find();
@@ -138,6 +146,7 @@ export const deleteCustomer = async (req, res) => {
 
 export const addMainArea = async (req, res) => {
   try {
+    console.log(req.body);
     const newMainArea = new mainAreaModel(_.pick(req.body, ["name"]));
     const duplicateValidation = await mainAreaModel.findOne({
       name: req.body.name,

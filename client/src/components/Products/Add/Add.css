@@ -1,0 +1,35 @@
+.addProductContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.addProductContainer .formContainer {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;  
+    align-items: center;
+    padding: 2% 2% 0 2%;
+}
+
+.addProductContainer .formContainer .textBox {
+    margin: 2% 2% 0 2%;
+}
+
+.addProductContainer .formContainer .priceContainer {
+    margin: 2% 2% 0 2%;
+    display: flex;
+}
+
+.addProductContainer .btnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.addProductContainer .btnContainer button{
+    margin: 3% 5%;
+}

@@ -16,7 +16,9 @@ const Home = () => {
           <Route path='/customers/*' element={<Customers />} />
           <Route path='/products/*' element={<Products />} />
           <Route path='/invoice/*' element={<Invoice />} />
+          <Route path='/voucher/*' element={<Reports />} />
           <Route path='/reports/*' element={<Reports />} />
+          <Route path='/employees/*' element={<Reports />} />
           <Route path='/auth' element={<Auth />} />
         </Routes>
       </BrowserRouter>

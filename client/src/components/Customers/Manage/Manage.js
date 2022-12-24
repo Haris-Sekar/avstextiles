@@ -20,7 +20,8 @@ import {
 } from "@mui/material";
 import { formatMoney } from "../../../constants/commonfunction";
 import { useNavigate } from "react-router-dom";
- 
+import Toast from "../../Toast/Toast";
+
 const Manage = () => {
   const navigate = useNavigate();
   const style = {
@@ -49,10 +50,10 @@ const Manage = () => {
     setSelectedRow(details);
     console.log(details);
   };
-
   if (!isLoading) {
-     return (
+    return (
       <>
+        <Toast />
         <div className="customerTableContainer">
           <TableContainer
             component={Paper}
@@ -92,17 +93,23 @@ const Manage = () => {
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="left">{row.phone}</TableCell>
                       <TableCell align="left">{row.mainArea}</TableCell>
-                      <TableCell align="left">{formatMoney(row.balance)}</TableCell>
+                      <TableCell align="left">
+                        {(row.balance) ? formatMoney(row.balance) : formatMoney(0)}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               ) : (
-                <TableBody> 
+                <TableBody>
                   <TableRow>
-                    <TableCell colSpan={5} sx={{ textAlign: "center" }}>
+                    <TableCell colSpan={6} sx={{ textAlign: "center" }}>
                       <Typography></Typography>No Customers found
-                      <br /> 
-                      <Button sx={{ m: 3 }} variant="outlined" onClick={() => navigate('/customers/AddCustomer')}>
+                      <br />
+                      <Button
+                        sx={{ m: 3 }}
+                        variant="outlined"
+                        onClick={() => navigate("/customers/AddCustomer")}
+                      >
                         Add some
                       </Button>
                     </TableCell>
@@ -122,7 +129,7 @@ const Manage = () => {
           BackdropProps={{
             timeout: 500,
           }}
-          sx={{borderColor:"white"}}
+          sx={{ borderColor: "white" }}
         >
           <Box sx={style}>
             <Add closeModal={handleClose} details={selectedRow} />

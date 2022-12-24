@@ -39,13 +39,18 @@ const customerSchema = new mongoose.Schema({
   },
   balance: {
     type: Number,
+    default: 0,
   },
   permissions: {
     type: Object,
     required: true,
   },
+  userId: {
+    type: String,
+    ref: "user",
+  },
   createdTime: {
-    type: Date,
+    type: String,
     required: true,
     default: Date.now(),
   },

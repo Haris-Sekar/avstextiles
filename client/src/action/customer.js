@@ -5,6 +5,8 @@ import {
   STOP_LOADING,
   START_LOADING,
   UPDATE,
+  CREATE_MAIN_AREA,
+  FETCH_ALL_MAIN_AREA
 } from "../constants/actionTypes";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -37,6 +39,23 @@ export const addCustomer = (formData, navigate) => async (dispatch) => {
   }
 };
 
+export const addMainArea = (formData, closeModel) => async (dispatch) => {
+  try{
+    const {data} = await api.addMainArea(formData);
+    if(data.code === 200){
+      dispatch({type: CREATE_MAIN_AREA, data: data.result});
+      Toast('success',data.message);
+      closeModel(false);
+    }
+    else {
+      Toast('error',data.message);
+    }
+  }catch (error) {
+    Toast('error',error);
+
+ }
+}
+
 export const getAllCustomer = () => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
@@ -47,6 +66,24 @@ export const getAllCustomer = () => async (dispatch) => {
     Toast('error',error);
   }
 };
+
+export const getAllMainArea = () => async (dispatch) =>{
+  try{
+    dispatch({type: START_LOADING});
+    const {data} = await api.getAllMainArea();
+    if(data.code === 200) {
+      dispatch({type: FETCH_ALL_MAIN_AREA, data: data.result});
+      dispatch({type: STOP_LOADING});
+    }
+    else{
+      dispatch({type: STOP_LOADING});
+      localStorage.clear();
+      Toast('Login error',data.message);
+    }
+  } catch (error) {
+      Toast('error',error);
+  }
+}
 export const updateCustomer =
   (formData, navigate, closeModal) => async (dispatch) => {
     try {
