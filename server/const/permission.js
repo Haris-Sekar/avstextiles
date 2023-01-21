@@ -55,9 +55,13 @@ for (const userType in defaultPermissions) {
 }
 
 export const checkRoutPermission = (fromDB, baseURL, route, req) => {
+  let response = {
+    code: 401,
+    message: "Unauthorized access",
+  }
   const request = apis[baseURL.split("/")[1]][route.path];
   if(!request){
-    return false;
+    return {type: false,response}
   }
   const requestModule = Object.keys(modules).find(
     (key) => modules[key].toLowerCase() === baseURL.split("/")[1]
@@ -68,17 +72,25 @@ export const checkRoutPermission = (fromDB, baseURL, route, req) => {
   ) {
     const requestParam = getParams(req);
     const apiParams = Object.keys(request.params);
+    let flag = true;
     apiParams.forEach((param) => {
       if (!Object.keys(requestParam).includes(param)) {
-        if (request.params[param] != typeof requestParam[param]);
-        {
-          return false;
+        response = {
+          code: 400,
+          message: "Parameter mismatch",
         }
+        flag =  false;
+      } else if (request.params[param] != typeof requestParam[param]){
+        response = {
+          code: 422,
+          message: "Parameter datatype mismatch",
+        } 
+        flag =  false;
       }
     });
-    return true;
+    return {type: flag,response};
   } else {
-    return false;
+    return {type: flag,response}
   }
 };
 
