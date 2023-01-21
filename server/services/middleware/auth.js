@@ -12,9 +12,7 @@ export const auth = async function (req, res, next) {
     try {
       const decoded = jwt.verify(token, process.env.PRIVATEKEY);
       const fromDb = await userModel.findById(decoded.id);
-      console.log(fromDb);
       if (fromDb.email === decoded.email) {
-        console.log(decoded.id);
         req.id = decoded.id;
         req.email = decoded.email;
         req.permission = fromDb.permission;

@@ -1,9 +1,9 @@
 import customerModel from "../models/customer.js";
 import mainAreaModel from "../models/mainArea.js";
 import _ from "lodash";
-import { defaultPermissions } from "../consts/permission.js";
+import { defaultPermissions } from "../const/permission.js";
+
 export const add = async (req, res) => {
-  console.log(req.id);
   try {
     const newCustomer = new customerModel(
       _.pick(req.body, [
@@ -33,7 +33,7 @@ export const add = async (req, res) => {
     newCustomer.cusId = process.env.SHORTNAME + "C" + cusId1;
     newCustomer.permissions = permissions;
     newCustomer.userId = req.id;
-    if(newCustomer.balance===null) newCustomer.balance = 0
+    if (newCustomer.balance === null) newCustomer.balance = 0;
     const validateExistingCustomerEmail = await customerModel.findOne({
       email: req.body.email,
     });
@@ -82,44 +82,51 @@ export const add = async (req, res) => {
   }
 };
 
-export const getAll = async (req, res) => {
+export const getCustomer = async (req, res) => {
   try {
-    const data = await customerModel.find({userId:req.id});
-    console.log(data);
-    res.send({
-      result: data,
-      code: "200",
-    });
+    if (req.body.id) {
+      const ids = req.body.id.split(" ");
+      const data = await customerModel.find({ _id: ids });
+      res.status(200).json({
+        result: data,
+        code: 200,
+      });
+    } else {
+      const data = await customerModel.find({ userId: req.id });
+      res.status(200).json({
+        result: data,
+        code: 200,
+      });
+    }
   } catch (error) {
-    const response = {
+    res.status(500).json({
       message: error.message,
       code: 500,
-    };
-    res.send(response);
-    return;
+    });
   }
 };
 
-export const update = async (req, res) => {
+export const bulkUpdate = async (req, res) => {
   try {
-    console.log("body", req.body);
-    const update = await customerModel.findOneAndUpdate(
-      { _id: req.body._id,cusId: req.id },
-      req.body
-    );
+    const toBeUpdatedData = req.body.data;
+    let update;
+    toBeUpdatedData.forEach(async (data) => {
+      update = await customerModel.findByIdAndUpdate(
+        { _id: data._id, cusId: req.id },
+        data
+      );
+    });
     const customer = await customerModel.find();
-    console.log(customer);
-    res.send({
+    res.status(200).json({
       code: 200,
       result: customer,
       message: "Updated Successfully",
     });
   } catch (error) {
-    const response = {
+    res.status(500).json({
       message: error.message,
       code: 500,
-    };
-    res.send(response);
+    });
     return;
   }
 };
@@ -146,9 +153,9 @@ export const deleteCustomer = async (req, res) => {
 
 export const addMainArea = async (req, res) => {
   try {
-    console.log(req.body);
     const newMainArea = new mainAreaModel(_.pick(req.body, ["name"]));
     const duplicateValidation = await mainAreaModel.findOne({
+      userId: req.id,
       name: req.body.name,
     });
     if (duplicateValidation) {
@@ -159,6 +166,7 @@ export const addMainArea = async (req, res) => {
       res.send(response);
       return;
     } else {
+      newMainArea.userId = req.id;
       const result = await newMainArea.save();
       const all = await mainAreaModel.find();
       const response = {
@@ -197,5 +205,42 @@ export const getAllMainArea = async (req, res) => {
     };
     res.send(response);
     return;
+  }
+};
+
+export const updateMainArea = async (req, res) => {
+  try {
+    const result = await mainAreaModel.findOneAndUpdate(
+      { _id: req.body._id, userId: req.id },
+      req.body
+    );
+    console.log(result);
+    const mainArea = await mainAreaModel.find({ userId: req.id });
+    res.status(200).json({
+      code: 200,
+      result: mainArea,
+      message: "Main area Updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      code: 500,
+      message: error.message,
+    });
+  }
+};
+
+export const deleteMainArea = async (req, res) => {
+  try {
+    console.log(req);
+    const result = await mainAreaModel.findOneAndDelete({userId: req.id,_id: req.query.id});
+    console.log(result);
+    res
+      .status(200)
+      .json({ message: "Main Area Deleted Successfully", code: 200 });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      code: 500,
+    });
   }
 };

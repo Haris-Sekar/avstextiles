@@ -6,17 +6,20 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import FormatSizeIcon from '@mui/icons-material/FormatSize';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
-import WorkspacesIcon from '@mui/icons-material/Workspaces';
+import AppsIcon from '@mui/icons-material/Apps';
 import Sidebar from "../Sidebar/Sidebar";
 import Dashboard from "./Dashboard/Dashboard";
-import Add from "./Add/Add";
+import AddContainer from "./Add/AddContainer";
+import Manage from "./Manage/Manage";
+import ProductGroup from "./ProductGroup/ProductGroup";
+import Navbar from "../Navbar/Navbar";
 const Products = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const options = [
     "Dashboard",
     "Add",
-    "Manage",
+    "Products",
     "Size",
     "Color",
     "Product Group",
@@ -24,29 +27,31 @@ const Products = () => {
   const icons = {
     "Dashboard": <DashboardIcon />,
     "Add":<AddBoxIcon />,
-    "Manage":<InventoryIcon />,
+    "Products":<InventoryIcon />,
     "Size":<FormatSizeIcon />,
     "Color":<ColorLensIcon />,
-    "Product Group":<WorkspacesIcon />,
+    "Product Group":<AppsIcon />,
   };
 
   return (
     <>
       <Sidebar options={options} icons={icons} mainTab = "products">
-        {location.pathname === "/products/Dashboard" ? (
+      <Navbar />
+
+        {location.pathname === "/products/dashboard" ? (
           <Dashboard />
-        ) : location.pathname === "/products/Add" ? (
-          <Add />
-        ) : location.pathname === "/products/Manage" ? (
+        ) : location.pathname === "/products/add" ? (
+          <AddContainer />
+        ) : location.pathname === "/products/products" ? (
+          <Manage />
+        ) : location.pathname === "/products/size" ? (
           <Dashboard />
-        ) : location.pathname === "/products/Size" ? (
+        ) : location.pathname === "/products/color" ? (
           <Dashboard />
-        ) : location.pathname === "/products/Color" ? (
-          <Dashboard />
-        ): location.pathname === "/products/ProductGroup" ? (
-          <Dashboard />
+        ): location.pathname === "/products/productgroup" ? (
+          <ProductGroup />
         ): (
-          <Navigate to="/products/Dashboard" />
+          <Navigate to="/products/dashboard" />
         )}
       </Sidebar>
     </>

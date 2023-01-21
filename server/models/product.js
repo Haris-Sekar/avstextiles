@@ -16,12 +16,7 @@ const productSchema = new mongoose.Schema({
   },
   price: {
     type: Object,
-  },
-  unit: {
-    type: String,
-    ref: "productUint",
-    required: true,
-  },
+  }, 
   pcs:{
     type: String
   },

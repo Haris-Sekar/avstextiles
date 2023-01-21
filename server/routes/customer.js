@@ -3,9 +3,11 @@ import {
   add,
   addMainArea,
   deleteCustomer,
-  getAll,
+  getCustomer,
   getAllMainArea,
-  update,
+  bulkUpdate,
+  updateMainArea,
+  deleteMainArea
 } from "../controllers/customer.js";
 
 import { auth } from "../services/middleware/auth.js";
@@ -15,14 +17,18 @@ const router = express.Router();
 
 router.post("/add", auth, permission, add);
 
-router.get("/", auth, permission, getAll);
+router.get("/", auth, permission, getCustomer);
 
-router.put("/update", auth, permission, update);
+router.put("/update", auth, permission, bulkUpdate);
 
-router.delete("/delete/:id", auth, permission, deleteCustomer);
+router.delete("/delete", auth, permission, deleteCustomer);
 
 router.get("/mainArea", auth, permission, getAllMainArea);
 
-router.post("/addMainArea", auth, permission, addMainArea);
+router.post("/mainArea/add", auth, permission, addMainArea);
+
+router.put("/mainArea/update", auth, permission, updateMainArea);
+
+router.delete("/mainArea/delete", auth, permission, deleteMainArea)
 
 export default router;

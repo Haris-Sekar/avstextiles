@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { verificationTemplate,frontEndBaseUrl } from "../consts/index.js";
+import { verificationTemplate,frontEndBaseUrl } from "../const/index.js";
 import userModel from "../models/auth.js";
 import jwt from "jsonwebtoken";
 dotenv.config();

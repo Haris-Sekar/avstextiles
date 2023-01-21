@@ -7,7 +7,6 @@ import {
   Button,
   TableCell,
   TableBody,
-  Input,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
@@ -24,9 +23,8 @@ import {
   deleteMainArea,
 } from "../../../action/customer";
 import { Skeleton, Typography, TextField, Modal, Box } from "@mui/material";
-import AlertBox from "../../AlertBox/AlertBox";
 
-const MainArea = () => {
+const ProductGroup = () => {
   const [open, setOpen] = React.useState(false);
   const [openNewMainAreaModel, setOpenNewMainAreaModel] = React.useState(false);
   const [newMainArea, setNewMainArea] = React.useState({ name: "" });
@@ -67,26 +65,13 @@ const MainArea = () => {
   const updateArea = () => {
     dispatch(updateMainArea(updateRow, setOpen));
   };
-  const [openAlert, setOpenAlert] = useState(false);
-  const [alertResult, setResultAlert] = useState(false);
-  const handleAlert = (e) => {
-    console.log(e);
-    if (e.target.name === "result" && e.target.value === "yes")
-      setResultAlert(true);
-    else if (e.target.name === "result" && e.target.value === "no"){
-      setResultAlert(false);
-      setOpenAlert(false);
-    }
-  };
+
   const handleDeleteBtn = (e) => {
     console.log(e.target.id);
-    setOpenAlert(true);
-    if (alertResult) {
-      for (let i = 0; i < mainAreas.length; i++) {
-        if (mainAreas[i]._id === e.target.id) delete mainAreas[i];
-      }
-      dispatch(deleteMainArea(e.target.id));
+    for (let i = 0; i < mainAreas.length; i++) {
+      if (mainAreas[i]._id === e.target.id) delete mainAreas[i];
     }
+    dispatch(deleteMainArea(e.target.id));
   };
 
   const addNewMainArea = () => {
@@ -97,15 +82,6 @@ const MainArea = () => {
   if (!isLoading) {
     return (
       <>
-        <AlertBox
-          openAlert={openAlert}
-          handleAlert={handleAlert}
-          setOpenAlert={setOpenAlert}
-          alertTitle="Deleting a Main Area"
-          alertDescription="Deleting this main area will remove its associated customer. This cannot be undone."
-          checkboxLabel="I understand that once deleted, this main area cannot be recovered."
-
-        />
         <div className="addNewBtn">
           <Button
             variant="contained"
@@ -304,4 +280,4 @@ const MainArea = () => {
   }
 };
 
-export default MainArea;
+export default ProductGroup;

@@ -1,0 +1,9 @@
+.customerTableContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.addNewBtn{
+    margin:0 0 2% 10%;
+}

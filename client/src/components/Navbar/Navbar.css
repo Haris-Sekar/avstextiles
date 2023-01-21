@@ -22,7 +22,8 @@ body {
 }
 
 .navbar .navbarContent{
-    margin: 0 0 2% 0;
+    margin: 2%;
+
 }
 
 .navbar .navbarContent .logo {
@@ -51,12 +52,12 @@ body {
 }
 .navbar .navbarContent {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
 .navbar .navbarContent .navbarItems {
-    width: 60%;
+    width: 80%;
 }
 
 .navbar .navbarContent .navbarItems ul {
