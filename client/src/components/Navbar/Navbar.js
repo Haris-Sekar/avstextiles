@@ -28,12 +28,11 @@ const Navbar = () => {
 		<>
 			<div className="navbar">
 				<div className="navbarContent">
-					<div className="logo"><img src={require("../../assets/images/logo.png")} alt="logo" /></div>
 					<div className="navbarItems">
 						<ul>
 							<li><Link className={location.pathname === "/" ? 'navbarItem active' : "navbarItem"} id='dashboard' to="/">Dashboard</Link></li>
-							<li><Link className={location.pathname.includes('customers')? 'navbarItem active' : "navbarItem"} id='customers' to="/customers/Dashboard">Customers</Link></li>
-							<li><Link className={location.pathname.includes('products') ? 'navbarItem active' : "navbarItem"} id='products' to="/products/Dashboard">Products</Link></li>
+							<li><Link className={location.pathname.includes('customers')? 'navbarItem active' : "navbarItem"} id='customers' to="/customers/dashboard">Customers</Link></li>
+							<li><Link className={location.pathname.includes('products') ? 'navbarItem active' : "navbarItem"} id='products' to="/products/dashboard">Products</Link></li>
 							<li><Link className={location.pathname.includes('invoice') ? 'navbarItem active' : "navbarItem"} id='Invoice' to="/invoice">Invoice</Link></li>
 							<li><Link className={location.pathname.includes('voucher') ? 'navbarItem active' : "navbarItem"} id='voucher' to="/voucher">Voucher</Link></li>
 							<li><Link className={location.pathname.includes('reports') ? 'navbarItem active' : "navbarItem"} id='reports' to="/reports">Reports</Link></li>

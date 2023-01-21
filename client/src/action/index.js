@@ -3,7 +3,6 @@ import { AUTH} from "../constants/actionTypes";
 export const login = (formData, navigate) => async (dispatch) => {
     try {
         const { data } = await api.login(formData);
-        console.log("login data" + data);
         if (data.code === 200) {
             dispatch({ type: AUTH, data });
             navigate("/");

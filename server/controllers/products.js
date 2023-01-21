@@ -5,7 +5,11 @@ import _ from "lodash";
 
 export const getAll = async (req, res) => {
   try {
-    const products = await productModel.find({ userId: req.id }).populate({path: "productGroup",select:"groupName"});
+    console.log(req.id);
+    const products = await productModel
+      .find({ userId: req.id })
+      .populate({ path: "productGroup", select: "groupName" });
+      console.log(products);
     res.status(200).json({
       code: 200,
       message: "All products has been fetched",
@@ -22,7 +26,7 @@ export const getAll = async (req, res) => {
 export const add = async (req, res) => {
   try {
     const product = new productModel(
-      _.pick(req.body, ["name", "productGroup", "price", "unit","pcs"])
+      _.pick(req.body, ["name", "productGroup", "price", "pcs"])
     );
     const lastId = await productModel.find().sort({ _id: -1 }).limit(1);
     let productId = process.env.SHORTNAME + "P0";
@@ -35,9 +39,11 @@ export const add = async (req, res) => {
     product.productId = process.env.SHORTNAME + "P" + productId1;
     product.userId = req.id;
     const result = await product.save();
+    const products = await productModel.find({ userId: req.id });
     res.status(201).json({
       code: 201,
       message: "Product created successfully",
+      products: products,
       result: result,
     });
   } catch (error) {

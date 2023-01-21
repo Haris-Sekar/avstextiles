@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/auth.js";
 import { accountVerification } from "./mail.js";
-import {defaultPermissions,USERTYPE} from "../consts/permission.js"
+import {defaultPermissions,USERTYPE} from "../const/permission.js"
 
 
 export const login = async (req, res) => {

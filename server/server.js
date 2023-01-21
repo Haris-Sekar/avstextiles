@@ -10,9 +10,10 @@ import auth from "./routes/auth.js";
 import home from "./routes/home.js";
 import customer from "./routes/customer.js";
 import permission from "./routes/permission.js";
-import product from "./routes/products.js"
+import product from "./routes/products.js";
 import morgan from "morgan";
- const app = express();
+
+const app = express();
 
 
 app.use(express.json());
@@ -25,10 +26,10 @@ dotenv.config();
 
 
 app.use("/auth",auth); 
-app.use("/",home)
+app.use("/",home);
 app.use('/customer',customer);
 app.use("/permission",permission);
-app.use("/product",product)
+app.use("/product",product);
 
 const port = process.env.PORT;
 mongoose

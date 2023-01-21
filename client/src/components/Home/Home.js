@@ -6,12 +6,12 @@ import Auth from '../Auth/Auth';
 import Products from "../Products/Products";
 import Invoice from "../Invoice/Invoice";
 import Reports from "../Reports/Reports"; 
+import Dashboard from '../Dashboard/Dashboard';
 
 const Home = () => { 
   return (
     <>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path='/customers/*' element={<Customers />} />
           <Route path='/products/*' element={<Products />} />
@@ -20,6 +20,7 @@ const Home = () => {
           <Route path='/reports/*' element={<Reports />} />
           <Route path='/employees/*' element={<Reports />} />
           <Route path='/auth' element={<Auth />} />
+          <Route path='/' element={<Dashboard/>} />
         </Routes>
       </BrowserRouter>
     </>

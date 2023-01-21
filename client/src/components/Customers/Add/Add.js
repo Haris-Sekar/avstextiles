@@ -26,23 +26,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { stateAndCity } from "../../../constants/StateAndCity";
+import { formatMoney } from "../../../constants/commonfunction";
 const Add = (props) => {
-  // useEffect(() => {
-  //   dispatch(getAllMainArea());
-  // }, []);
-  const mainAreas = [{
-    _id:"asdf",
-    name: "Asdf",
-  },{
-    _id: "siubdv",
-    name:"asdfes"
-  },
-  { 
-    _id:"ASdf",
-    name: "Ponnamapet"
-  }
-];
-  const { isLoading } = useSelector(
+  
+  const { isLoading,mainAreas } = useSelector(
     (state) => state.customerReducer
   );
   const state = Object.keys(stateAndCity);
@@ -65,7 +52,6 @@ const Add = (props) => {
   const [errors, setErrors] = useState({ ...initialState });
   if (props.details) {
     initialState = props.details;
-    console.log("initialState", initialState);
   }
 
   const [customer, setCustomer] = useState(initialState);
@@ -95,7 +81,7 @@ const Add = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  console.log("hello");
+
   
   
   if(isLoading){
@@ -146,7 +132,7 @@ const Add = (props) => {
     setIsDisabled(false);
     setBtnText("Update");
     if (btnText === "Update" && validation()) {
-      dispatch(updateCustomer(customer, navigate, props.closeModal));
+      dispatch(updateCustomer({data:[customer]},navigate, props.closeModal));
     }
   };
   const handleCancelChange = () => {
@@ -364,7 +350,7 @@ const Add = (props) => {
             id="outlined-start-adornment"
             sx={{ width: "84%" }}
             className="textBox"
-            value={customer.balance}
+            value={formatMoney(customer.balance)}
             name="balance"
             onChange={(event) => handleForm(event)}
             disabled={props.details ? isDisabled : !isDisabled}

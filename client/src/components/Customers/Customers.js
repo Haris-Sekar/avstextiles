@@ -10,30 +10,33 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GroupIcon from '@mui/icons-material/Group';
 import DomainIcon from '@mui/icons-material/Domain';
+import Navbar from "../Navbar/Navbar";
 const Customers = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const options = ["Dashboard", "Add Customer", "Manage Customers", "Main Area"];
+  const options = ["Dashboard", "Add Customer", "Customers", "Main Area"];
   const icons = {
     Dashboard: <DashboardIcon />,
     "Add Customer": <PersonAddAltIcon />,
-    "Manage Customers": <GroupIcon />,
+    "Customers": <GroupIcon />,
     "Main Area" : <DomainIcon />
   }
 
   return (
     <>
       <Sidebar options={options} icons={icons} mainTab = "customers">
-        {location.pathname === "/customers/Dashboard" ? (
+      <Navbar />
+
+        {location.pathname === "/customers/dashboard" ? (
           <Dashboard />
-        ) : location.pathname === "/customers/AddCustomer" ? (
+        ) : location.pathname === "/customers/addcustomer" ? (
           <Add />
-        ) : location.pathname === "/customers/ManageCustomers" ? (
+        ) : location.pathname === "/customers/customers" ? (
           <Manage />
-        ) : location.pathname === "/customers/MainArea" ? (
+        ) : location.pathname === "/customers/mainarea" ? (
           <MainArea />
         ) : (
-          <Navigate to="/customers/Dashboard" />
+          <Navigate to="/customers/dashboard" />
         )}
       </Sidebar>
     </>

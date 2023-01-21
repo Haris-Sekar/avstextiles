@@ -16,12 +16,16 @@
 }
 
 .addProductContainer .formContainer .textBox {
-    margin: 2% 2% 0 2%;
+    margin: 2% 2% 2% 2%;
 }
 
 .addProductContainer .formContainer .priceContainer {
-    margin: 2% 2% 0 2%;
+    margin: 2% 2% 2% 2%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; 
+
 }
 
 .addProductContainer .btnContainer {
@@ -32,4 +36,10 @@
 
 .addProductContainer .btnContainer button{
     margin: 3% 5%;
+}
+
+.addProductContainer .priceContainer .PriceBtn{
+    margin: 0 2%;
+    height: fit-content;
+    padding: 1% 2%;
 }
