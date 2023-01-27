@@ -2,12 +2,6 @@
     "version": 2,
     "build": {
         "buildCommand": "server.js",
-        "use": "other"  
-    },
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
-    ]
+        "use": "other"
+    }
 }
