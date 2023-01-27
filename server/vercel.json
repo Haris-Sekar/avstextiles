@@ -1,4 +1,4 @@
 {
     "version": 2,
-    "buildCommand": "node server.js"
+    "buildCommand": "./server.js"
 }
