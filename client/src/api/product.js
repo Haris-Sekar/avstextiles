@@ -18,4 +18,4 @@ export const getAllProduct = () => baseUrl.get("/product");
 export const getAllProductGroup = () => baseUrl.get("/product/productGroup");
 export const addProductGroup = (formData) => baseUrl.post("/product/productGroup/add",formData);
 export const updateProductGroup = (formData) => baseUrl.put("/product/productGroup/update",formData);
-export const deleteProductGroup = (id) => baseUrl.delete("/product/productGroup/delete",id);
+export const deleteProductGroup = (id) => baseUrl.delete(`/product/productGroup/delete?id=${id}`);

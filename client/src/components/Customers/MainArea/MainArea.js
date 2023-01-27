@@ -97,7 +97,7 @@ const MainArea = () => {
   if (!isLoading) {
     return (
       <>
-        <AlertBox
+        {/* <AlertBox
           openAlert={openAlert}
           handleAlert={handleAlert}
           setOpenAlert={setOpenAlert}
@@ -105,7 +105,7 @@ const MainArea = () => {
           alertDescription="Deleting this main area will remove its associated customer. This cannot be undone."
           checkboxLabel="I understand that once deleted, this main area cannot be recovered."
 
-        />
+        /> */}
         <div className="addNewBtn">
           <Button
             variant="contained"

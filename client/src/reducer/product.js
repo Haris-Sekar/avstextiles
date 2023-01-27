@@ -17,6 +17,8 @@ const productReducer = (
       return { ...state, product: action.data };
     case actionType.CREATE_PRODUCT:
       return { ...state, product: action.data };
+    case actionType.CREATE_PRODUCT_GROUP:
+      return {...state,productGroup: action.data};
     default:
       return state;
   }

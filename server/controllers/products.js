@@ -188,6 +188,9 @@ export const deleteSize = async (req, res) => {
 export const getAllProductGroup = async (req, res) => {
   try {
     const productGroups = await productGroupModel.find({ userId: req.id });
+    setTimeout(() => {
+      console.log("hi")
+    }, 100000);
     res.status(200).json({
       code: 200,
       message: "Product Group fetched successfully",
@@ -253,9 +256,12 @@ export const updateProductGroup = async (req, res) => {
 export const deleteProductGroup = async (req, res) => {
   try {
     const result = await productGroupModel.findOneAndDelete({
-      _id: req.params.id,
+      _id: req.query.id,
       userId: req.id,
     });
+
+    const products = await productModel.deleteMany({userId: req.id,productGroup: req.query.id});
+    
     console.log(result);
     if (result === null) {
       res.status(202).json({

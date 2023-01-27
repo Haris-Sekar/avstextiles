@@ -33,7 +33,7 @@ router.get("/productGroup", auth, permission, getAllProductGroup);
 
 router.put("/productGroup/update", auth, permission, updateProductGroup);
 
-router.delete("/productGroup/delete/:id", auth, permission, deleteProductGroup);
+router.delete("/productGroup/delete", auth, permission, deleteProductGroup);
 
 router.get("/size", auth, permission, getAllSize);
 

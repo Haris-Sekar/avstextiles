@@ -53,6 +53,7 @@ for (const userType in defaultPermissions) {
     }
   }
 }
+console.log(defaultPermissions);
 
 export const checkRoutPermission = (fromDB, baseURL, route, req) => {
   let response = {
@@ -73,21 +74,23 @@ export const checkRoutPermission = (fromDB, baseURL, route, req) => {
     const requestParam = getParams(req);
     const apiParams = Object.keys(request.params);
     let flag = true;
-    apiParams.forEach((param) => {
-      if (!Object.keys(requestParam).includes(param)) {
-        response = {
-          code: 400,
-          message: "Parameter mismatch",
+    if(!request.isParamExceptional){
+      apiParams.forEach((param) => {
+        if (!Object.keys(requestParam).includes(param)) {
+          response = {
+            code: 400,
+            message: "Parameter mismatch",
+          }
+          flag =  false;
+        } else if (request.params[param] != typeof requestParam[param]){
+          response = {
+            code: 422,
+            message: "Parameter datatype mismatch",
+          } 
+          flag =  false;
         }
-        flag =  false;
-      } else if (request.params[param] != typeof requestParam[param]){
-        response = {
-          code: 422,
-          message: "Parameter datatype mismatch",
-        } 
-        flag =  false;
-      }
-    });
+      });
+    }
     return {type: flag,response};
   } else {
     return {type: flag,response}
@@ -101,7 +104,7 @@ function getParams(request) {
     case API.POST:
       return request.body;
     case API.DELETE:
-      return request.params;
+      return request.query;
     case API.PUT:
       return request.body;
     case API.PATCH:
