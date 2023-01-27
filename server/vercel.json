@@ -2,7 +2,7 @@
     "version": 2,
     "build": {
         "buildCommand": "server.js",
-        "use": "@vercel/node"
+        "use": "other"  
     },
     "routes": [
         {
