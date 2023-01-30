@@ -11,7 +11,6 @@ import {
 import React, { useEffect, useState } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-
 import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Toast from "../../Toast/Toast";
@@ -19,10 +18,10 @@ import Backdrop from "@mui/material/Backdrop";
 import { getAllProductGroup,addProductGroup, updateProductGroup, deleteProductGroup } from "../../../action/product";
 import { Skeleton, Typography, TextField, Modal, Box } from "@mui/material";
 
-const ProductGroup = () => {
+const ProductGroup = async() => {
   const [open, setOpen] = React.useState(false);
   const [openNewMainAreaModel, setOpenNewMainAreaModel] = React.useState(false);
-  const [newMainArea, setNewMainArea] = React.useState({ groupName: "" });
+  const [newProductGroup, setNewProductGroup] = React.useState({ groupName: "" });
   const handleClose = () => setOpen(false);
   const handleCloseNew = () => setOpenNewMainAreaModel(false);
   const style = {
@@ -73,16 +72,15 @@ const ProductGroup = () => {
     for (let i = 0; i < productGroup.length; i++) {
       if (productGroup[i]._id === e.target.id) delete productGroup[i];
     }
-    console.log(e.target.id);
     dispatch(deleteProductGroup(e.target.id));
   };
 
   const addNewMainArea = () => {
-    if (newMainArea.groupName.length > 0) {
-      dispatch(addProductGroup(newMainArea, handleCloseNew));
-      dispatch(getAllProductGroup());
+    if (newProductGroup.groupName.length > 0) {
+      dispatch(addProductGroup(newProductGroup, handleCloseNew));
     }
   };
+
   if (!isLoading) {
     return (
       <>
@@ -222,9 +220,9 @@ const ProductGroup = () => {
                 label="Name"
                 variant="outlined"
                 id="outlined-basic"
-                value={newMainArea.name}
+                value={newProductGroup.name}
                 onChange={(e) =>
-                  setNewMainArea({ ...newMainArea, groupName: e.target.value })
+                  setNewProductGroup({ ...newProductGroup, groupName: e.target.value })
                 }
                 inputProps={{ autoFocus: openNewMainAreaModel }}
               />

@@ -115,5 +115,17 @@ export const product = {
     params: {id: "string"},
     permissionTypes: 2,
     isParamExceptional: false
+  },
+  "/add":{
+    method: API.POST,
+    description: "Add a Product",
+    params:{
+      name: "string",
+      pcs: "string",
+      price: "object",
+      productGroup: "string"
+    },
+    permissionTypes: 1,
+    isParamExceptional: false
   }
 };

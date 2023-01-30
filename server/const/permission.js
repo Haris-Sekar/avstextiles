@@ -53,6 +53,7 @@ for (const userType in defaultPermissions) {
     }
   }
 }
+console.log(defaultPermissions);
 
 export const checkRoutPermission = (fromDB, baseURL, route, req) => {
   let response = {

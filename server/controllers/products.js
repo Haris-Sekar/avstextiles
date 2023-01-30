@@ -188,6 +188,9 @@ export const deleteSize = async (req, res) => {
 export const getAllProductGroup = async (req, res) => {
   try {
     const productGroups = await productGroupModel.find({ userId: req.id });
+    setTimeout(() => {
+      console.log("hi")
+    }, 100000);
     res.status(200).json({
       code: 200,
       message: "Product Group fetched successfully",
