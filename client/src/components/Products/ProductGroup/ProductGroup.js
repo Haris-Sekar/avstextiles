@@ -16,18 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Toast from "../../Toast/Toast";
 import Backdrop from "@mui/material/Backdrop";
-import {
-  addMainArea,
-  getAllMainArea,
-  updateMainArea,
-  deleteMainArea,
-} from "../../../action/customer";
+import { getAllProductGroup,addProductGroup, updateProductGroup, deleteProductGroup } from "../../../action/product";
 import { Skeleton, Typography, TextField, Modal, Box } from "@mui/material";
 
 const ProductGroup = () => {
   const [open, setOpen] = React.useState(false);
   const [openNewMainAreaModel, setOpenNewMainAreaModel] = React.useState(false);
-  const [newMainArea, setNewMainArea] = React.useState({ name: "" });
+  const [newMainArea, setNewMainArea] = React.useState({ groupName: "" });
   const handleClose = () => setOpen(false);
   const handleCloseNew = () => setOpenNewMainAreaModel(false);
   const style = {
@@ -45,38 +40,47 @@ const ProductGroup = () => {
     flexWrap: "wrap",
     gap: 3,
   };
-  const [updateRow, setUpdateRow] = useState({ name: "" });
+  const [updateRow, setUpdateRow] = useState({ groupName: "" });
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllMainArea());
+    dispatch(getAllProductGroup());
   }, [dispatch]);
-  const { mainAreas, isLoading } = useSelector(
-    (state) => state.customerReducer
-  );
+
+  const {productGroup, isLoading} = useSelector(
+    (state) =>state.productReducer
+  )
   const handleBtnChange = (e) => {
     setOpen(true);
     console.log(e);
-    mainAreas.forEach((area) => {
+    productGroup.forEach((area) => {
       if (area._id === e.target.id) {
         setUpdateRow(area);
       }
     });
   };
   const updateArea = () => {
-    dispatch(updateMainArea(updateRow, setOpen));
+    console.log(updateRow);
+    productGroup.forEach((ele) => {
+      if(ele._id === updateRow._id){
+        ele.groupName = updateRow.groupName;
+      } 
+    });
+    dispatch(updateProductGroup(updateRow, setOpen));
   };
 
   const handleDeleteBtn = (e) => {
     console.log(e.target.id);
-    for (let i = 0; i < mainAreas.length; i++) {
-      if (mainAreas[i]._id === e.target.id) delete mainAreas[i];
+    for (let i = 0; i < productGroup.length; i++) {
+      if (productGroup[i]._id === e.target.id) delete productGroup[i];
     }
-    dispatch(deleteMainArea(e.target.id));
+    console.log(e.target.id);
+    dispatch(deleteProductGroup(e.target.id));
   };
 
   const addNewMainArea = () => {
-    if (newMainArea.name.length > 0) {
-      dispatch(addMainArea(newMainArea, handleCloseNew));
+    if (newMainArea.groupName.length > 0) {
+      dispatch(addProductGroup(newMainArea, handleCloseNew));
+      dispatch(getAllProductGroup());
     }
   };
   if (!isLoading) {
@@ -104,16 +108,16 @@ const ProductGroup = () => {
                       <TableCell align="left">Delete</TableCell>
                     </TableRow>
                   </TableHead>
-                  {mainAreas.length > 0 ? (
+                  {productGroup.length > 0 ? (
                     <TableBody>
-                      {mainAreas.map((row) => (
+                      {productGroup.map((row) => (
                         <TableRow
                           style={{
                             transition: ".2s ease-in-out",
                           }}
                           key={row._id}
                         >
-                          <TableCell align="left">{row.name}</TableCell>
+                          <TableCell align="left">{row.groupName}</TableCell>
                           <TableCell align="left">
                             <Button
                               variant="contained"
@@ -177,9 +181,9 @@ const ProductGroup = () => {
                 label="Name"
                 variant="outlined"
                 id="outlined-basic"
-                value={updateRow.name}
+                value={updateRow.groupName}
                 onChange={(e) =>
-                  setUpdateRow({ ...updateRow, name: e.target.value })
+                  setUpdateRow({ ...updateRow, groupName: e.target.value })
                 }
                 inputProps={{ autoFocus: open }}
               />
@@ -220,7 +224,7 @@ const ProductGroup = () => {
                 id="outlined-basic"
                 value={newMainArea.name}
                 onChange={(e) =>
-                  setNewMainArea({ ...newMainArea, name: e.target.value })
+                  setNewMainArea({ ...newMainArea, groupName: e.target.value })
                 }
                 inputProps={{ autoFocus: openNewMainAreaModel }}
               />

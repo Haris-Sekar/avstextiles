@@ -6,6 +6,8 @@
 
 .sidebar {
     width: 12%;
+    min-width: 230px;
+    max-width: 12%;
 }
 
 .sidebar .sidebarContent {

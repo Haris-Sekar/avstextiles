@@ -15,7 +15,7 @@ const customerSchema = new mongoose.Schema({
     type: String,
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
   },
   address1: {
@@ -38,7 +38,7 @@ const customerSchema = new mongoose.Schema({
     ref: "mainArea",
   },
   balance: {
-    type: Number,
+    type: String,
     default: 0,
   },
   permissions: {
