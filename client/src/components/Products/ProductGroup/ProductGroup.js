@@ -18,7 +18,7 @@ import Backdrop from "@mui/material/Backdrop";
 import { getAllProductGroup,addProductGroup, updateProductGroup, deleteProductGroup } from "../../../action/product";
 import { Skeleton, Typography, TextField, Modal, Box } from "@mui/material";
 
-const ProductGroup = async() => {
+const ProductGroup = () => {
   const [open, setOpen] = React.useState(false);
   const [openNewMainAreaModel, setOpenNewMainAreaModel] = React.useState(false);
   const [newProductGroup, setNewProductGroup] = React.useState({ groupName: "" });
@@ -48,6 +48,8 @@ const ProductGroup = async() => {
   const {productGroup, isLoading} = useSelector(
     (state) =>state.productReducer
   )
+
+  console.log(productGroup);
   const handleBtnChange = (e) => {
     setOpen(true);
     console.log(e);

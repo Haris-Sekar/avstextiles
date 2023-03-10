@@ -20,10 +20,10 @@ export const accountVerification = async (email) => {
   try {
     const token = jwt.sign({
       email: email,
-      dateCreated: Date.now()
+      dateCreated: new Date().getTime()
     }, process.env.PRIVATEKEY);
     const user = await userModel.find({email : email});
-
+    console.log(token);
     const props = {
       link : frontEndBaseUrl+"verify/"+token,
       name : user.name

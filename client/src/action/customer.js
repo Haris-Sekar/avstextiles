@@ -29,8 +29,8 @@ export const addCustomer = (formData, navigate) => async (dispatch) => {
     const { data } = await api.addCustomer(formData);
     if (data.code === 200) {
       dispatch({ type: CREATE, data });
+      navigate("/customers/customers",{"toast":data.message,"type":"success"});
       Toast("success", data.message);
-      navigate("/customers/ManageCustomers");
     } else {
       Toast("error", data.message);
     }

@@ -38,7 +38,7 @@ export const customer = {
   "/delete": {
     method: API.DELETE,
     description: "Delete customer data in bulk",
-    params: { data: "array" },
+    params: { id: "string" },
     permissionTypes: 2,
     isParamExceptional: false,
   },
@@ -129,3 +129,12 @@ export const product = {
     isParamExceptional: false
   }
 };
+
+export const permission = {
+  "/modules":{
+    method: API.GET,
+    description: "Get all moduels",
+    permissionTypes: 0,
+    isParamExceptional: true,
+  }
+}

@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
   addedTime:{
     type: String,
     required: true,
-    default: Date.now(),
+    default: new Date().getTime(),
   }
 });
 

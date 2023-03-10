@@ -39,6 +39,7 @@ userSchema.methods.generateToken = function () {
       name: this.name,
       userType: this.userType,
       isVerified: this.isVerified,
+      permission: this.permission
     },
     process.env.PRIVATEKEY
   );
