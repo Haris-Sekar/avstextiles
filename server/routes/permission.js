@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllDefaultPermission } from "../controllers/permission.js";
+import { getAllDefaultPermission,getAllModules } from "../controllers/permission.js";
 import {auth} from "../services/middleware/auth.js";
 import { permission } from "../services/middleware/permission.js";
  
@@ -12,4 +12,5 @@ router.get("/getAllPermission",getAllDefaultPermission);
 
 router.put("/editPermission",auth,permission);
 
+router.get('/modules',auth,permission,getAllModules)
 export default router;

@@ -6,19 +6,24 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "../Button/Button.css"
+import { checkRoute,getNavbarItems } from '../../constants/commonfunction';
 const Navbar = () => {
+	const navItems = getNavbarItems()
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [isLogged, setIsLogged] = useState(localStorage.getItem('token') ? true : false);
+	
 	useEffect(() => {
+		checkRoute(location.pathname,navigate)
+
 		if (!localStorage.getItem("token")) {
 			navigate("/auth");
 		}
 		else {
 			setIsLogged(true);
 		}
-	}, [navigate]);
+	}, [location.pathname, navigate]);
 	const userLogout = () => {
 		dispatch({ type: LOGOUT })
 		setIsLogged(false)

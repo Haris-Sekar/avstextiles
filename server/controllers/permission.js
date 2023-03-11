@@ -1,5 +1,6 @@
 import { defaultPermissions } from "../const/permission.js";
 import customerModel from "../models/customer.js"
+import modulesModel from "../models/modules.js";
 
 export const getAllDefaultPermission = async (req,res) => {
     try {
@@ -26,5 +27,21 @@ export const editPermission = async (req,res) => {
         })
     } catch (error) {
         
+    }
+}
+
+export const getAllModules = async (req,res) => {
+    try {
+        const result = await modulesModel.find({userId: req.id});
+        res.status(200).json({
+            code: 200,
+            message: "modules fetched successfully",
+            result: result
+        })
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            message: error.message,
+        })
     }
 }

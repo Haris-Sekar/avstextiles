@@ -6,6 +6,7 @@ export const customer = {
     description: "Get all | id the customer data of the user",
     params: { id: "string" },
     permissionTypes: 0,
+    isParamExceptional: true,
   },
   "/add": {
     method: API.POST,
@@ -14,41 +15,46 @@ export const customer = {
       companyName: "string",
       name: "string",
       email: "string",
-      phone: "number",
+      phone: "string",
       address1: "string",
       address2: "string",
       city: "string",
       state: "string",
-      pincode: "number",
-      gstNum: "string",
+      pincode: "string",
+      gstNumber: "string",
       mainArea: "string",
-      balance: "number",
+      balance: "string",
     },
     permissionTypes: 1,
+    isParamExceptional: false,
   },
   "/update": {
     method: API.PUT,
     description: "To update the customer data in bulk",
     params: { data: "array" },
     permissionTypes: 3,
+    isParamExceptional: false,
   },
   "/delete": {
     method: API.DELETE,
     description: "Delete customer data in bulk",
-    params: { data: "array" },
+    params: { id: "string" },
     permissionTypes: 2,
+    isParamExceptional: false,
   },
   "/mainArea": {
     method: API.GET,
     description: "Get all | id main areas",
     params: { id: "string" },
     permissionTypes: 0,
+    isParamExceptional: true,
   },
   "/mainArea/add": {
     method: API.POST,
     description: "add a new main area",
     params: { name: "string" },
     permissionTypes: 1,
+    isParamExceptional: false,
   },
 
   "/mainArea/update": {
@@ -56,32 +62,88 @@ export const customer = {
     description: "Update the main areas in bulk",
     params: { data: "array" },
     permissionTypes: 3,
+    isParamExceptional: false,
   },
   "/mainArea/delete": {
     method: API.DELETE,
     description: "delete mainArea in bulk",
     params: { data: "array" },
     permissionTypes: 2,
+    isParamExceptional: false,
   },
 };
 
 export const product = {
-  "/":{
+  "/": {
     method: API.GET,
     description: "get all | id products",
-    params: { id: "string"},
+    params: { id: "string" },
     permissionTypes: 0,
+    isParamExceptional: true,
   },
-  "/size":{
+  "/size": {
     method: API.GET,
     description: "get all | id Sizes",
-    params: { id: "string"},
+    params: { id: "string" },
     permissionTypes: 0,
+    isParamExceptional: true,
   },
-  "/productGroup":{
+  "/productGroup": {
     method: API.GET,
     description: "get all | id product group",
-    params: { id: "string"},
+    params: { id: "string" },
     permissionTypes: 0,
+    isParamExceptional: true,
+  },
+  "/productGroup/add":{
+    method: API.POST,
+    description: "Add a new product group",
+    params: {groupName: "string"},
+    permissionTypes: 1,
+    isParamExceptional: false
+  },
+  "/productGroup/update":{
+    method: API.PUT,
+    description: "Update a product group",
+    params: {_id: "string",groupName: "string"},
+    permissionTypes: 3,
+    isParamExceptional: false
+  },
+  "/productGroup/delete" : {
+    method: API.DELETE,
+    description: "Delete a product group",
+    params: {id: "string"},
+    permissionTypes: 2,
+    isParamExceptional: false
+  },
+  "/add":{
+    method: API.POST,
+    description: "Add a Product",
+    params:{
+      name: "string",
+      pcs: "string",
+      price: "object",
+      productGroup: "string"
+    },
+    permissionTypes: 1,
+    isParamExceptional: false
+  },
+  "/size/add":{
+    method: API.POST,
+    description: "Add a size",
+    params:{
+      size: "string"
+    },
+    permissionTypes: 1,
+    isParamExceptional: false
+  }
+};
+
+export const permission = {
+  "/modules":{
+    method: API.GET,
+    description: "Get all moduels",
+    permissionTypes: 0,
+    isParamExceptional: true,
   }
 }

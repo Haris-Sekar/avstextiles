@@ -22,7 +22,10 @@ import { formatMoney } from "../../../constants/commonfunction";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../Toast/Toast";
 
-const Manage = () => {
+const Manage = (props) => {
+  if(props.toast){
+    Toast(props.type,props.toast);
+  }
   const navigate = useNavigate();
   const style = {
     position: "absolute",

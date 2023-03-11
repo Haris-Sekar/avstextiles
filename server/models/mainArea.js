@@ -12,7 +12,7 @@ const mainAreaSchema = new mongoose.Schema({
     createdTime:{
         type:String,
         required: true,
-        default: Date.now(),
+        default: new Date().getTime(),
     }
 });
 

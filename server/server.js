@@ -16,6 +16,7 @@ import morgan from "morgan";
 const app = express();
 
 
+
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
@@ -27,8 +28,8 @@ dotenv.config();
 
 app.use("/auth",auth); 
 app.use("/",home);
-app.use('/customer',customer);
 app.use("/permission",permission);
+app.use('/customer',customer);
 app.use("/product",product);
 
 const port = process.env.PORT;

@@ -161,7 +161,7 @@ export const accountVerify = async (req, res) => {
             res.send(response);
             return;
         }
-        if (tokenData.dateCreated <= Date.now()) {
+        if (tokenData.dateCreated <= new Date().getTime()) {
             const result = await userModel.updateOne({ email: tokenData.email},{isVerified: true });
             (result);
             const response = {

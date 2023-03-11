@@ -6,9 +6,12 @@ import {
   STOP_LOADING,
   CREATE_PRODUCT,
   FETCH_ALL_PRODUCT,
+  UPDATE_PRODUCT_GROUP,
+  UPDATE_SIZE,
 } from "../constants/actionTypes";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API } from "../constants/consts.js";
 
 const Toast = (type, message) =>
   toast[type](message, {
@@ -24,9 +27,11 @@ const Toast = (type, message) =>
 
 export const getAllProductGroup = () => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.getAllProductGroup();
     if (data.code === 200) {
       dispatch({ type: FETCH_ALL_PRODUCT_GROUP, data: data.productGroups });
+      dispatch({ type: STOP_LOADING });
     }
   } catch (error) {
     Toast("error", error.message);
@@ -77,9 +82,95 @@ export const getAllProduct = () => async (dispatch) => {
   }
 };
 
-export const addProductGroup = (formData) => async (dispatch) => {
+export const addProductGroup = (formData, closeModal) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.addProductGroup(formData);
-  } catch (error) {}
+    if (data.code === 201) {
+      dispatch({ type: STOP_LOADING });
+      closeModal(false);
+      Toast("success", data.message);
+    }
+  } catch (error) {
+    Toast("error", error.message);
+  }
 };
+
+export const addSize = (formData,closeModal) => async (dispatch) => {
+  try{
+    dispatch({type: START_LOADING});
+    const {data} = await api.addSize(formData);
+    if(data.code === 201) {
+      dispatch({type: STOP_LOADING});
+      closeModal(false);
+      Toast("sucess",data.message);
+    } else {
+      dispatch({type: STOP_LOADING});
+      Toast("error",API.generalError)
+    }
+  } catch( error ){
+    Toast("error",error.message);
+  }
+}
+
+export const updateProductGroup =
+  (formData, closeModel) => async (dispatch) => {
+    try {
+      dispatch({ type: START_LOADING });
+      const { data } = await api.updateProductGroup(formData);
+      if (data.code === 200) {
+        console.log(data.productGroups);
+        dispatch({ type: UPDATE_PRODUCT_GROUP, data: data.productGroups });
+        dispatch({ type: STOP_LOADING });
+        closeModel(false);
+        Toast("success", data.message);
+      }
+    } catch (error) {
+      Toast("error", error.message);
+    }
+  };
+
+export const updateSize = (formData,closeModal) => async (dispatch) =>{
+  try{
+    dispatch({type:START_LOADING});
+    const {data} = await api.updateSize(formData);
+    if(data.code === 200) {
+      dispatch({type: UPDATE_SIZE});
+      dispatch({type: STOP_LOADING});
+      closeModal(false);
+      Toast("success","data.message");
+    }else {
+      dispatch({type: STOP_LOADING});
+      Toast("error",API.generalError)
+    }
+  } catch (error) {
+    Toast("error", error.message);
+  }
+}
+
+
+  export const deleteProductGroup = (formData) => async (dispatch) => {
+    try{
+      const {data} = await api.deleteProductGroup(formData);
+      if(data.code === 204) {
+        Toast("success",data.message);
+      } else {
+        Toast("error", data.message);
+      }
+    } catch(error){
+      Toast("error",error.message);
+    }
+  }
+
+  export const deleteSize = (id) => async(dispatch) => {
+    try {
+      const {data} = await api.deleteSize(id);
+      if(data.code === 204) {
+        Toast("success",data.message);
+      } else {
+        Toast("error",API.generalError);
+      }
+    } catch (error) {
+      Toast("error",error.message);
+    }
+  }

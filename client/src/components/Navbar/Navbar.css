@@ -6,7 +6,7 @@
 :root {
     --background: #ED6B5B;
     --white: #ffffff;
-    --primay: #F9AC66;
+    --primary: #F9AC66;
     --secondary: #C36B84;
     --black: #000000;
     --light: #ffeded;
@@ -21,9 +21,13 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.navbar .navbarContent{
-    margin: 2%;
-
+.navbar{
+    /* border: 2px solid black; */
+    margin: 1% 2%;
+    /* background-color: #fffff0; */
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 10px;
+    padding: 1%;
 }
 
 .navbar .navbarContent .logo {
@@ -72,7 +76,7 @@ body {
 
 .navbar .navbarContent .navbarItems .navbarItem {
     text-decoration: none;
-    color: var(--black);
+    color: #6c757d;
     border: 2px solid transparent;
     transition: 0.3s ease-in-out;
     padding: 5% 13%;
@@ -80,10 +84,7 @@ body {
 }
 
 .navbar .navbarContent .navbarItems .navbarItem:hover {
-    color: var(--background);
-    background-color: var(--light);
-    border: 2px solid var(--light);
-    border-radius: 20px;
+    color: #000000;
 }
 .navbar .navbarContent .navbarBtnContainer {
     width: 20%;
@@ -96,10 +97,7 @@ body {
 }
 
 .navbar .navbarContent .navbarItems .active {
-    color: var(--background);
-    background-color: var(--light);
-    border: 2px solid var(--light);
-    border-radius: 20px;
+    color: #000000;
 }
 
 .navbar .navbarContent .dropdown{
