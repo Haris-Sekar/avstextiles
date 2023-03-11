@@ -13,6 +13,7 @@ import AddContainer from "./Add/AddContainer";
 import Manage from "./Manage/Manage";
 import ProductGroup from "./ProductGroup/ProductGroup";
 import Navbar from "../Navbar/Navbar";
+import Size from "./Size/Size";
 const Products = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,7 +46,7 @@ const Products = () => {
         ) : location.pathname === "/products/products" ? (
           <Manage />
         ) : location.pathname === "/products/size" ? (
-          <Dashboard />
+          <Size />
         ) : location.pathname === "/products/color" ? (
           <Dashboard />
         ): location.pathname === "/products/productgroup" ? (

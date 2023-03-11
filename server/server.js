@@ -28,8 +28,8 @@ dotenv.config();
 
 app.use("/auth",auth); 
 app.use("/",home);
-app.use('/customer',customer);
 app.use("/permission",permission);
+app.use('/customer',customer);
 app.use("/product",product);
 
 const port = process.env.PORT;

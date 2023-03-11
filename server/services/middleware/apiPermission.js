@@ -127,6 +127,15 @@ export const product = {
     },
     permissionTypes: 1,
     isParamExceptional: false
+  },
+  "/size/add":{
+    method: API.POST,
+    description: "Add a size",
+    params:{
+      size: "string"
+    },
+    permissionTypes: 1,
+    isParamExceptional: false
   }
 };
 

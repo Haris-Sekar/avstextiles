@@ -15,13 +15,13 @@ import {
   import DeleteIcon from "@mui/icons-material/Delete";
   import Toast from "../../Toast/Toast";
   import Backdrop from "@mui/material/Backdrop";
-  import { getAllProductGroup,addProductGroup, updateProductGroup, deleteProductGroup } from "../../../action/product";
+  import { getAllSize,addSize,updateSize, deleteSize } from "../../../action/product";
   import { Skeleton, Typography, TextField, Modal, Box } from "@mui/material";
   
   const Size = () => {
     const [open, setOpen] = React.useState(false);
     const [openNewSizeModel, setOpenNewSizeModel] = React.useState(false);
-    const [newSize, setNewSize] = React.useState({ groupName: "" });
+    const [newSize, setNewSize ] = React.useState({ size: "" });
     const handleClose = () => setOpen(false);
     const handleCloseNew = () => setOpenNewSizeModel(false);
     const style = {
@@ -39,10 +39,10 @@ import {
       flexWrap: "wrap",
       gap: 3,
     };
-    const [updateRow, setUpdateRow] = useState({ groupName: "" });
+    const [updateRow, setUpdateRow] = useState({ size: "" });
     const dispatch = useDispatch();
     useEffect(() => {
-      dispatch(getAllProductGroup());
+      dispatch(getAllSize());
     }, [dispatch]);
   
     const {size, isLoading} = useSelector(
@@ -63,10 +63,10 @@ import {
       console.log(updateRow);
       size.forEach((ele) => {
         if(ele._id === updateRow._id){
-          ele.groupName = updateRow.groupName;
+          ele.size = updateRow.size;
         } 
       });
-      dispatch(updateProductGroup(updateRow, setOpen));
+      dispatch(updateSize(updateRow, setOpen));
     };
   
     const handleDeleteBtn = (e) => {
@@ -74,12 +74,12 @@ import {
       for (let i = 0; i < size.length; i++) {
         if (size[i]._id === e.target.id) delete size[i];
       }
-      dispatch(deleteProductGroup(e.target.id));
+      dispatch(deleteSize(e.target.id));
     };
   
     const addNewMainArea = () => {
-      if (newSize.groupName.length > 0) {
-        dispatch(addProductGroup(newSize, handleCloseNew));
+      if (newSize.size.length > 0) {
+        dispatch(addSize(newSize, handleCloseNew));
       }
     };
   
@@ -108,7 +108,7 @@ import {
                         <TableCell align="left">Delete</TableCell>
                       </TableRow>
                     </TableHead>
-                    {size.length > 0 ? (
+                    {size && size.length > 0 ? (
                       <TableBody>
                         {size.map((row) => (
                           <TableRow
@@ -117,7 +117,7 @@ import {
                             }}
                             key={row._id}
                           >
-                            <TableCell align="left">{row.groupName}</TableCell>
+                            <TableCell align="left">{row.size}</TableCell>
                             <TableCell align="left">
                               <Button
                                 variant="contained"
@@ -181,9 +181,9 @@ import {
                   label="Name"
                   variant="outlined"
                   id="outlined-basic"
-                  value={updateRow.groupName}
+                  value={updateRow.size}
                   onChange={(e) =>
-                    setUpdateRow({ ...updateRow, groupName: e.target.value })
+                    setUpdateRow({ ...updateRow, size: e.target.value })
                   }
                   inputProps={{ autoFocus: open }}
                 />
@@ -224,7 +224,7 @@ import {
                   id="outlined-basic"
                   value={newSize.name}
                   onChange={(e) =>
-                    setNewSize({ ...newSize, groupName: e.target.value })
+                    setNewSize({ ...newSize, size: e.target.value })
                   }
                   inputProps={{ autoFocus: openNewSizeModel }}
                 />

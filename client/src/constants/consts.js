@@ -4,3 +4,7 @@ export const PERMISSION = {
     DELETE : 2,
     UPDATE: 3
 }
+
+export const API = {
+    generalError: "An error occured please contact support"
+}
