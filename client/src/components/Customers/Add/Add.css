@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: black;
 
 }
 
@@ -13,10 +14,14 @@
     flex-wrap: wrap;  
     align-items: center;
     padding: 2% 2% 0 2%;
+    background-color: black;
+    color: white;
 }
 
 .addCustomerContainer .formContainer .textBox {
     margin: 2% 2% 0 2%;
+    color: white;
+    
 }
 
 .addCustomerContainer .btnContainer {

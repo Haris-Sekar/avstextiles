@@ -24,6 +24,8 @@ const Add = (props) => {
   
   const productGroupsList = [];
   const sizeList = [];
+  // const [sizeList,setSizeList] = useState([]);
+  
   const { productGroup, sizes } = useSelector((state) => state.productReducer);
   const [product, setProduct] = useState(initialState);
   if (productGroup) {
@@ -115,6 +117,10 @@ const Add = (props) => {
     console.log(product);
     const formData = product;
     formData.productGroup = productGroupId;
+    price.forEach((price)=>{
+      price.id = sizes.filter((ele) => ele.size === price.size)[0]._id;
+      price = Object.fromEntries(Object.entries(price).filter(([_, v]) => v != null));
+    })
     formData.price = price;
     console.log(formData);
     if (validation()) {
@@ -174,6 +180,7 @@ const Add = (props) => {
       <Paper elevation={5} sx={{ width: "80%" }}>
         <div className="formContainer">
           <TextField
+            autoFocus
             className="textBox"
             id="outlined-basic"
             sx={{ width: "40%" }}

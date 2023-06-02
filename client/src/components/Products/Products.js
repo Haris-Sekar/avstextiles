@@ -5,7 +5,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import FormatSizeIcon from '@mui/icons-material/FormatSize';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
 import AppsIcon from '@mui/icons-material/Apps';
 import Sidebar from "../Sidebar/Sidebar";
 import Dashboard from "./Dashboard/Dashboard";
@@ -22,7 +21,6 @@ const Products = () => {
     "Add",
     "Products",
     "Size",
-    "Color",
     "Product Group",
   ];
   const icons = {
@@ -30,7 +28,6 @@ const Products = () => {
     "Add":<AddBoxIcon />,
     "Products":<InventoryIcon />,
     "Size":<FormatSizeIcon />,
-    "Color":<ColorLensIcon />,
     "Product Group":<AppsIcon />,
   };
 
@@ -47,8 +44,6 @@ const Products = () => {
           <Manage />
         ) : location.pathname === "/products/size" ? (
           <Size />
-        ) : location.pathname === "/products/color" ? (
-          <Dashboard />
         ): location.pathname === "/products/productgroup" ? (
           <ProductGroup />
         ): (

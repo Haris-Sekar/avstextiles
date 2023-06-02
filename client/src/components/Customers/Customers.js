@@ -11,6 +11,7 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GroupIcon from '@mui/icons-material/Group';
 import DomainIcon from '@mui/icons-material/Domain';
 import Navbar from "../Navbar/Navbar";
+import AddContainer from "../Customers/Add/AddContainer";
 const Customers = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +31,7 @@ const Customers = () => {
         {location.pathname === "/customers/dashboard" ? (
           <Dashboard />
         ) : location.pathname === "/customers/addcustomer" ? (
-          <Add />
+          <AddContainer />
         ) : location.pathname === "/customers/customers" ? (
           <Manage />
         ) : location.pathname === "/customers/mainarea" ? (

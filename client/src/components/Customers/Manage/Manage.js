@@ -33,7 +33,7 @@ const Manage = (props) => {
     left: "50%",
     width: "800px",
     transform: "translate(-50%, -50%)",
-    bgcolor: "background.paper",
+    bgcolor: "#000000",
     boxShadow: 24,
     p: 4,
     borderRadius: "20px",
@@ -111,7 +111,7 @@ const Manage = (props) => {
                       <Button
                         sx={{ m: 3 }}
                         variant="outlined"
-                        onClick={() => navigate("/customers/AddCustomer")}
+                        onClick={() => navigate("/customers/addcustomer")}
                       >
                         Add some
                       </Button>
@@ -128,14 +128,10 @@ const Manage = (props) => {
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
           sx={{ borderColor: "white" }}
         >
           <Box sx={style}>
-            <Add closeModal={handleClose} details={selectedRow} />
+            <Add closeModal={handleClose} details={selectedRow}  />
           </Box>
         </Modal>
       </>
@@ -161,6 +157,49 @@ const Manage = (props) => {
             </TableHead>
             <TableBody>
               <TableRow>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Skeleton width="100%" height="50px" />
+                </TableCell>
                 <TableCell>
                   <Skeleton width="100%" height="50px" />
                 </TableCell>

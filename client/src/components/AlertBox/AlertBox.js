@@ -1,4 +1,3 @@
-import { createContext } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -6,48 +5,40 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-const alertBox = createContext();
 
 const AlertBox = (props) => {
-  const [open, setOpen] = React.useState(false);
-  const [confirm, setConfirm] = React.useState(false);
   const handleClose = () => {
-    setOpen(false);
-    setConfirm(false);
+    console.log("jo");
+    props.setOpen(false);
   };
   const handleAgree = () => {
-    setConfirm(true);
-    setOpen(false);
+    props.setOpen(false);
+    console.log(props.alertObject);
+    props.callback(props.alertObject);
   };
   return (
-    <alertBox.Provider value={setConfirm}>
-      {props}
       <Dialog
-        open={open}
+        open={props.open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {props.question} ?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            {props.description}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>{props.noText}</Button>
           <Button onClick={handleAgree} autoFocus>
-            Agree
+            {props.yesText}
           </Button>
         </DialogActions>
       </Dialog>
-    </alertBox.Provider>
   );
 };
 
-export default function useConfirm() {
-  return React.useContext();
-}
+export default AlertBox;

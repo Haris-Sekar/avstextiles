@@ -40,11 +40,11 @@
 }
 
 .sidebar .sidebarContent .sidebarItems .sidebarItem:hover {
-    color: #000000;
+    color: #ffffff;
 }
 
 .sidebar .sidebarContent .sidebarItems .active {
-    color: #000000;
+    color: #ffffff;
 }
 
 .content {

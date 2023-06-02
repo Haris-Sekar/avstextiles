@@ -8,3 +8,12 @@ export const PERMISSION = {
 export const API = {
     generalError: "An error occured please contact support"
 }
+
+export const alertMessages = {
+    delete: {
+        getModelQuestion: (module) => {
+            return `Do you confirm to delete this ${module}`;
+        },
+        getSizeDescription: "By deleting this size, all the prices associate with this size will be deleted and it cannot be recoverd"
+    }
+}

@@ -19,10 +19,10 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #000000;
 }
 
 .navbar{
-    /* border: 2px solid black; */
     margin: 1% 2%;
     /* background-color: #fffff0; */
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
@@ -84,7 +84,7 @@ body {
 }
 
 .navbar .navbarContent .navbarItems .navbarItem:hover {
-    color: #000000;
+    color: #ffffff;
 }
 .navbar .navbarContent .navbarBtnContainer {
     width: 20%;
@@ -97,7 +97,7 @@ body {
 }
 
 .navbar .navbarContent .navbarItems .active {
-    color: #000000;
+    color: #ffffff;
 }
 
 .navbar .navbarContent .dropdown{

@@ -133,8 +133,8 @@ export const bulkUpdate = async (req, res) => {
 
 export const deleteCustomer = async (req, res) => {
   try {
-    console.log(req.params);
-    await customerModel.findByIdAndRemove(req.params.id);
+    console.log(req.query);
+    await customerModel.findByIdAndRemove(req.query.id);
     const response = {
       message: "Customer Deleted Successfully",
       code: 200,

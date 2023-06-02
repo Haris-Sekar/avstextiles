@@ -2,13 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 const Sidebar = (props) => {
-  console.log(process.env.COMPANYNAME);
   const location = useLocation();
   function sideBarLink(ele) {
     ele = ele.toLowerCase();
     ele = ele.replace(/\s+/, "");
     if (location.pathname.endsWith(ele)) {
-      return "#";
+      // window.location.reload();
     } else {
       let isUsed = false;
       props.options.forEach((option) => {
@@ -42,12 +41,13 @@ const Sidebar = (props) => {
                     <Link
                       key={ele}
                       className={
-                        location.pathname.includes(
+                        location.pathname.split("/")[location.pathname.split("/").length - 1].includes(
                           ele.replace(/\s+/, "").toLowerCase()
                         )
                           ? "sidebarItem active"
                           : "sidebarItem"
                       }
+                      onClick={(location.pathname.endsWith(ele) ? window.location.reload() : "")}
                       to={sideBarLink(ele)}
                     >
                       {" "}

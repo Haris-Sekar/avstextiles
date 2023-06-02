@@ -41,7 +41,7 @@ router.post("/size/add", auth, permission, addSize);
 
 router.put("/size/update", auth, permission, updateSize);
 
-router.delete("/size/delete/:id", auth, permission, deleteSize);
+router.delete("/size/delete", auth, permission, deleteSize);
 
 
 export default router;

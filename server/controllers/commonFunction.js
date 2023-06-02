@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const moduleIds = {
-  customer: "C0",
-  mainArea: "MA0",
-  product: "P0",
-  size: "S0",
-  productGroup: "PG0",
+export const moduleIds = {
+  customer: "C",
+  mainArea: "MA",
+  product: "P",
+  size: "S",
+  productGroup: "PG",
+  invoice: "INV"
 };
 
 export const addDataToCollection = async (module, model, data, dataToPick) => {

@@ -8,34 +8,31 @@ import {
   CREATE_MAIN_AREA,
   FETCH_ALL_MAIN_AREA,
   UPDATE_MAIN_AREA,
+  BTN_LOADING_START,
+  BTN_LOADING_END,
+  DELETE_BTN_LOAD_START,
+  DELETE_BTN_LOAD_END,
+  DELETE_CUSTOMER,
 } from "../constants/actionTypes";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toast } from "../constants/commonfunction";
 
-const Toast = (type, message) =>
-  toast[type](message, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  });
 
 export const addCustomer = (formData, navigate) => async (dispatch) => {
   try {
+    dispatch({type: BTN_LOADING_START});
     const { data } = await api.addCustomer(formData);
     if (data.code === 200) {
       dispatch({ type: CREATE, data });
+      dispatch({type: BTN_LOADING_END});
       navigate("/customers/customers",{"toast":data.message,"type":"success"});
       Toast("success", data.message);
     } else {
       Toast("error", data.message);
+      dispatch({type: BTN_LOADING_END});
     }
   } catch (error) {
     Toast("error", error);
+    dispatch({type: BTN_LOADING_END});
   }
 };
 
@@ -84,36 +81,40 @@ export const getAllMainArea = () => async (dispatch) => {
 export const updateCustomer =
   (formData, navigate, closeModal) => async (dispatch) => {
     try {
-      dispatch({ type: START_LOADING });
+      dispatch({ type: BTN_LOADING_START });
       const { data } = await api.updateCustomer(formData);
       if (data.code === 200) {
         dispatch({ type: UPDATE, data: data.result });
-
-        dispatch({ type: STOP_LOADING });
+        dispatch({ type: BTN_LOADING_END });
         closeModal();
       } else {
+        dispatch({ type: BTN_LOADING_END });
         Toast("error", data.message);
       }
     } catch (error) {
+      dispatch({ type: BTN_LOADING_END });
       Toast("error", error);
     }
   };
 
 export const deleteCustomer = (id, closeModal) => async (dispatch) => {
   try {
-    dispatch({ type: START_LOADING });
+    dispatch({ type: DELETE_BTN_LOAD_START});
 
     const { data } = await api.deleteCustomer(id);
     const { allCustomer } = await api.getAllCustomer();
     if (data.code === 200) {
-      dispatch({ type: FETCH_ALL, data: allCustomer });
-
-      dispatch({ type: STOP_LOADING });
+      dispatch({type: DELETE_CUSTOMER})
+      dispatch({ type: DELETE_BTN_LOAD_END});
       Toast("success", data.message);
       closeModal();
+    } else {
+      Toast("success", data.message);
+      dispatch({ type: DELETE_BTN_LOAD_END});
     }
   } catch (error) {
     Toast("error", error);
+    dispatch({ type: DELETE_BTN_LOAD_END});
   }
 };
 

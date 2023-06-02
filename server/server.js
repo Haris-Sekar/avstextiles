@@ -11,6 +11,7 @@ import home from "./routes/home.js";
 import customer from "./routes/customer.js";
 import permission from "./routes/permission.js";
 import product from "./routes/products.js";
+import invoice from "./routes/invoice.js";
 import morgan from "morgan";
 
 const app = express();
@@ -31,6 +32,7 @@ app.use("/",home);
 app.use("/permission",permission);
 app.use('/customer',customer);
 app.use("/product",product);
+app.use("/invoice",invoice);
 
 const port = process.env.PORT;
 mongoose

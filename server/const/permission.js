@@ -83,6 +83,9 @@ export const checkRoutPermission = (fromDB, baseURL, route, req) => {
           }
           flag =  false;
         } else if (request.params[param] != typeof requestParam[param]){
+          console.log(param);
+          console.log(typeof requestParam[param]);
+          console.log(request.params[param] + " "+ typeof requestParam[param]);
           response = {
             code: 422,
             message: "Parameter datatype mismatch",

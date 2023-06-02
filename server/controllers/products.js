@@ -104,6 +104,7 @@ export const addSize = async (req, res) => {
       });
     } else {
       const size = new productSizeModel(_.pick(req.body, ["size"]));
+      size.size = size.size.toUpperCase();
       size.userId = req.id;
       const lastId = await productSizeModel.find().sort({ _id: -1 }).limit(1);
       let sizeId = process.env.SHORTNAME + "S0";
@@ -147,9 +148,10 @@ export const getAllSize = async (req, res) => {
 
 export const updateSize = async (req, res) => {
   try {
+    const formData = req.body.data;
     const updateSize = await productSizeModel.findByIdAndUpdate(
-      { _id: req.body._id, userId: req.id },
-      req.body
+      { _id: formData._id, userId: req.id },
+      formData
     );
     const sizes = await productSizeModel.find({ userId: req.id });
     res.status(200).json({
@@ -167,17 +169,25 @@ export const updateSize = async (req, res) => {
 
 export const deleteSize = async (req, res) => {
   try {
-    console.log(req.params.id);
+    console.log(req.query.id);
     const result = await productSizeModel.findOneAndDelete({
-      _id: req.params.id,
+      _id: req.query.id,
       userId: req.id,
     });
-    console.log(result);
+    const priceDelete = await productModel.find({price:{$elemMatch:{id: req.query.id}}});
+    if(priceDelete.length > 0){
+      priceDelete.forEach((price) => {
+        price.filter((ele) => ele.id != req.query.id)
+      });
+    }
+    console.log(priceDelete);
     res.status(202).json({
       code: 202,
       message: "Size Delete Successfully",
+      deletedId: req.query.id
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       code: 500,
       message: error.message,
@@ -188,9 +198,6 @@ export const deleteSize = async (req, res) => {
 export const getAllProductGroup = async (req, res) => {
   try {
     const productGroups = await productGroupModel.find({ userId: req.id });
-    setTimeout(() => {
-      console.log("hi")
-    }, 100000);
     res.status(200).json({
       code: 200,
       message: "Product Group fetched successfully",

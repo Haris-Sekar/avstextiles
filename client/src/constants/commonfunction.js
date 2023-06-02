@@ -1,4 +1,5 @@
 import jwt_decode from "jwt-decode";
+import { toast } from "react-hot-toast";
 import { PERMISSION } from "./consts";
 
 export function formatMoney(input) {
@@ -77,4 +78,51 @@ export const checkPermission = (moduelName,permissionType) => {
     if(locationModule) break;
   }
   return permission[moduleIndex].includes(permissionType.toString());
+}
+
+export const sortSize = (size) => {
+  let numericSize = [];
+  let alphaSize = [];
+  size.forEach((size) => {
+    if(isNaN(size.size)){
+      alphaSize.push(size);
+    } else {
+      numericSize.push(size);
+    }
+  });
+  return [...sortNumericSize(numericSize),...alphaSize];
+}
+
+export const sortNumericSize = (numericSize) => {
+  let result = [];
+  result = numericSize.sort((a,b)=> a.size - b.size);
+  return result;
+}
+
+
+export const generateRandomId = (length = 8) =>  {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let id = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    id += characters[randomIndex];
+  }
+  return id;
+}
+
+export const Toast = (type,message) => {
+
+  toast[type](message,{
+    duration: 4000,
+    position:"top-right",
+    style:{
+      minWidth: '200px',
+      minHeight: '50px',
+      padding: '15px 20px',
+      margin: '2%',
+      fontWeight: 900,
+      fontSize: '17px',
+      borderRadis: '10px'
+    }
+  })
 }

@@ -21,15 +21,16 @@ import {
   addCustomer,
   updateCustomer,
   deleteCustomer,
-  getAllMainArea,
 } from "../../../action/customer";
 import { useNavigate } from "react-router-dom";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { stateAndCity } from "../../../constants/StateAndCity";
 import { formatMoney } from "../../../constants/commonfunction";
+import LoadingButton from "@mui/lab/LoadingButton";
 const Add = (props) => {
+  const dispatch = useDispatch();
   
-  const { isLoading,mainAreas } = useSelector(
+  const { isLoading,mainAreas,btnLoad,deleteBtnLoad } = useSelector(
     (state) => state.customerReducer
   );
   const state = Object.keys(stateAndCity);
@@ -55,7 +56,6 @@ const Add = (props) => {
   }
 
   const [customer, setCustomer] = useState(initialState);
-
   const [city, setCity] = useState(customer.state.length > 0 ? stateAndCity[customer.state] : []);
   var mainAreaList = [];
   const handleForm = (event, mainArea) => {
@@ -78,12 +78,11 @@ const Add = (props) => {
       validation({ [event.target.name]: event.target.value });
     }
   };
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   
 
   
-  
+  console.log(btnLoad);
   if(isLoading){
     mainAreaList = ["Please Wait"]
   }
@@ -125,6 +124,8 @@ const Add = (props) => {
   };
   const submitForm = () => {
     if (validation()) {
+
+      setCustomer({...customer,balance: customer.balance.replace(",","")})
       dispatch(addCustomer(customer, navigate));
     }
   };
@@ -132,7 +133,11 @@ const Add = (props) => {
     setIsDisabled(false);
     setBtnText("Update");
     if (btnText === "Update" && validation()) {
+
       dispatch(updateCustomer({data:[customer]},navigate, props.closeModal));
+      if(props.callBack) {
+        props.callBack(customer)
+      }
     }
   };
   const handleCancelChange = () => {
@@ -156,7 +161,7 @@ const Add = (props) => {
               label="Customer Id"
               disabled
               variant="outlined"
-              sx={{ width: "84%" }}
+              sx={{ width: "84%" ,color:"white" ,input: { color: 'red' }}}
             />
           ) : (
             <></>
@@ -173,6 +178,7 @@ const Add = (props) => {
             variant="outlined"
             value={customer.companyName}
             error={errors.companyName !== ""}
+            autoFocus
           />
           <TextField
             disabled={props.details ? isDisabled : !isDisabled}
@@ -364,13 +370,15 @@ const Add = (props) => {
         <div className="btnContainer">
           {props.details ? (
             <>
-              <Button
+              <LoadingButton
                 variant="contained"
                 onClick={handleBtnChange}
                 startIcon={<BorderColorIcon />}
+                loading={btnLoad}
+                loadingPosition="start"
               >
                 {btnText}
-              </Button>
+              </LoadingButton>
               {!isDisabled ? (
                 <Button
                   variant="contained"
@@ -384,25 +392,29 @@ const Add = (props) => {
                 <></>
               )}
 
-              <Button
+              <LoadingButton
                 variant="contained"
                 color="error"
                 startIcon={<PersonRemoveIcon />}
                 onClick={handleDeleteCustomer}
+                loading={deleteBtnLoad}
+                loadingPosition="start"
               >
                 Delete Customer
-              </Button>
+              </LoadingButton>
             </>
           ) : (
             <>
-              <Button
+              <LoadingButton
                 variant="contained"
                 onClick={() => submitForm()}
                 startIcon={<GroupAddIcon />}
                 color="success"
+                loading={btnLoad}
+                loadingPosition="start"
               >
                 Add Customer
-              </Button>
+              </LoadingButton>
               <Button
                 variant="contained"
                 onClick={() => setCustomer(initialState)}
